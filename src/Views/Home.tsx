@@ -646,19 +646,15 @@ ${formData.message}
           <div className="demo-content">
             <div className="demo-videos">
               <div className="video-placeholder">
-                <div className="video-label">🎥 Vidéo pour de <span>Gentil Le NoiR</span></div>
+                <div className="video-label">🎥 Vidéo pour de Démonstration </div>
                 <div className="video-container">
-                  {/* Espace pour vidéo Android */}
-                  <div className="video-placeholder-content">
-                    <span className="video-icon">▶️</span>
-                    <p>Vidéo démo Android - À insérer</p>
-                    <small>Ligne 847 - Remplacez ce contenu par votre vidéo Android</small>
-                  </div>
+                  <video src="/vid/Numeric-Paper.webm" controls preload='metadata' className="video"></video>
+                  <a href="/vid/Numeric-Paper.webm" download>Télécharger la vidéo</a>
                 </div>
               </div>
               
               <div className="video-placeholder">
-                <div className="video-label">🎥 Vidéo de Démonstration</div>
+                <div className="video-label">🎥 Vidéo de <span>Gentil Le NoiR</span></div>
                 <div className="video-container">
                   {/* Espace pour vidéo PC */}
                   <div className="video-placeholder-content">
@@ -696,7 +692,7 @@ ${formData.message}
             <div className="demo-images">
               <h3>Galerie d'Images</h3>
               <div className="image-grid">
-                {['/favicon.ico'].map(img => (
+                {['/favicon.ico', '/img/screenshoots/001.png', '/img/screenshoots/002.png', '/img/screenshoots/003.png'].map(img => (
                   // <div key={img} className="image-placeholder">
                     <div>
                       <img src={img} className='img-demo'/>
@@ -872,7 +868,7 @@ ${formData.message}
           <div className="team-profile">
             <div className="team-avatar">
               <div className="avatar-placeholder">
-                <span className="avatar-icon">👨‍💻</span>
+                <img src="/img/gentil-lenoir.JPG" alt="Photo de Gentil Le NoiR" className="avatar-icon" />
               </div>
             </div>
             
