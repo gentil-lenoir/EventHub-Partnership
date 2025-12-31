@@ -724,12 +724,8 @@ ${formData.message}
               <div className="video-placeholder">
                 <div className="video-label">🎥 Vidéo de <span>Gentil Le NoiR</span></div>
                 <div className="video-container">
-                  {/* Espace pour vidéo PC */}
-                  <div className="video-placeholder-content">
-                    <span className="video-icon">▶️</span>
-                    <p>Vidéo démo PC - À insérer</p>
-                    <small>Ligne 858 - Remplacez ce contenu par votre vidéo PC</small>
-                  </div>
+                  <video src="/vid/Video-NumericPaper-Pr-COMPRESSED.mp4" controls preload="metadata" className="video"></video>
+                  <a href="/vid/Video-NumericPaper-Pr-COMPRESSED.mp4" download>Télécharger la vidéo</a>
                 </div>
               </div>
             </div>
