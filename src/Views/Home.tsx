@@ -30,6 +30,7 @@ interface Feature {
   description: string;
   icon: React.ReactNode;
   details: string[];
+  iconColor: string;
 }
 
 interface Testimonial {
@@ -101,7 +102,8 @@ const features: Feature[] = [
       "Protection contre la duplication",
       "Vérification en temps réel",
       "Historique d'accès complet"
-    ]
+    ],
+    iconColor: 'blue',
   },
   {
     id: 2,
@@ -114,7 +116,8 @@ const features: Feature[] = [
       "Planification de séances multiples",
       "Intégration de calendriers",
       "Notifications automatiques"
-    ]
+    ],
+    iconColor: 'red',
   },
   {
     id: 3,
@@ -127,7 +130,8 @@ const features: Feature[] = [
       "Paiements sécurisés en ligne",
       "Facturation automatique",
       "Rapports financiers détaillés"
-    ]
+    ],
+    iconColor: 'green'
   },
   {
     id: 4,
@@ -140,7 +144,8 @@ const features: Feature[] = [
       "Personnalisation avancée",
       "Prévisualisation en temps réel",
       "Adaptation mobile et desktop"
-    ]
+    ],
+    iconColor: 'orange',
   },
   {
     id: 5,
@@ -153,7 +158,8 @@ const features: Feature[] = [
       "Cartographie des participants",
       "Prévisions de participation",
       "Rapports exportables"
-    ]
+    ],
+    iconColor: '',
   },
   {
     id: 6,
@@ -166,7 +172,8 @@ const features: Feature[] = [
       "Support client multilingue",
       "Documentation complète",
       "Formations en ligne"
-    ]
+    ],
+    iconColor: 'gray',
   }
 ];
 
@@ -399,7 +406,7 @@ ${formData.message}
             <span className="logo-icon"><img src={selectedTheme === 'dark' ? "/img/Numeric-Paper-white.png" : "/favicon.ico"} alt="" width="40px" /></span>
             <span className="logo-text">
               <strong><span translate="no">NumericPaper</span></strong>
-              <small>Pour tes Évenements</small>
+              <small>À la recherche de <span style={{color:'white', fontWeight:'bold'}}>Partenaire</span></small>
             </span>
           </div>
           
@@ -457,7 +464,7 @@ ${formData.message}
         
         <div className="hero-content">
           <div className="hero-badge">
-            <span><FaRocket style={{ display: 'inline', marginRight: '8px' }} /> Innovation Technologique</span>
+            <span><FaRocket style={{ display: 'inline', marginRight: '8px', color:'green' }} /> Innovation Technologique</span>
           </div>
           
           <h1 className="hero-title">
@@ -531,7 +538,7 @@ ${formData.message}
               
               <div className="project-highlights">
                 <div className="highlight-item">
-                  <div className="highlight-icon"><FaBullseye /></div>
+                  <div className="highlight-icon"><FaBullseye color='red'/></div>
                   <div className="highlight-content">
                     <h4>Cible du marché</h4>
                     <p>Tous les organisateurs d'événements : mariages, anniversaires, conférences, lancements produits, etc.</p>
@@ -539,7 +546,7 @@ ${formData.message}
                 </div>
                 
                 <div className="highlight-item">
-                  <div className="highlight-icon"><FaLightbulb /></div>
+                  <div className="highlight-icon"><FaLightbulb  color='orange'/></div>
                   <div className="highlight-content">
                     <h4>Innovation clé</h4>
                     <p>QR Codes uniques et temporaires avec système de détection de duplication en temps réel</p>
@@ -547,7 +554,7 @@ ${formData.message}
                 </div>
                 
                 <div className="highlight-item">
-                  <div className="highlight-icon"><FaChartLine /></div>
+                  <div className="highlight-icon"><FaChartLine color='green'/></div>
                   <div className="highlight-content">
                     <h4>Potentiel de marché</h4>
                     <p>Marché des événements virtuels en croissance de 400% depuis 2020</p>
@@ -607,7 +614,7 @@ ${formData.message}
           <div className="features-grid">
             {features.map(feature => (
               <div key={feature.id} className="feature-card">
-                <div className="feature-icon">{feature.icon}</div>
+                <div className="feature-icon" style={{color:feature.iconColor}}>{feature.icon}</div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
                 
@@ -619,7 +626,7 @@ ${formData.message}
                 
                 <div className="feature-footer">
                   <span className="feature-tag">Inclus</span>
-                  <button className="feature-learn-more">En savoir plus →</button>
+                  <button className="feature-learn-more"></button>
                 </div>
               </div>
             ))}
@@ -743,9 +750,9 @@ ${formData.message}
             </div> */}
             
             <div className="demo-images">
-              <h3>Galerie d'Images</h3>
+              <h3>Galerie d'Images</h3><br />
               <div className="image-grid">
-                {['/favicon.ico', '/img/screenshoots/001.png', '/img/screenshoots/003.png', '/img/affiche1.png', '/img/affiche2.png', '/img/affiche3.png'].map(img => (
+                {['/img/Image-logo-numericpaper.png', '/img/screenshoots/001.png', '/img/screenshoots/003.png', '/img/affiche1.png', '/img/affiche2.png', '/img/affiche3.png'].map(img => (
                   // <div key={img} className="image-placeholder">
                     <div key={img}>
                       <img src={img} className='img-demo'/>
@@ -854,7 +861,7 @@ ${formData.message}
                       <div className="table-cell">
                         {savings > 0.01 ? (
                           <>
-                            ${savings.toFixed(2)} <span style={{ color: 'red' }}>({percent.toFixed(0)}%)</span>
+                            ${savings.toFixed(2)} <span className='saving-percent'>({percent.toFixed(0)}%)</span>
                           </>
                         ) : '-'}
                       </div>
@@ -929,7 +936,7 @@ ${formData.message}
             <div className="timeline-item future">
               <div className="timeline-date">Oct 2024</div>
               <div className="timeline-content">
-                <h4>Exploitation et Développement plus profonde</h4>
+                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }}/>Exploitation et Développement plus profonde</h4>
                 <p>Programmation et Développement des fonctions plus complexes et internes</p>
               </div>
             </div>
@@ -953,7 +960,7 @@ ${formData.message}
             <div className="timeline-item current">
               <div className="timeline-date">Dec 2025</div>
               <div className="timeline-content">
-                <h4><FaCircle style={{ display: 'inline', marginRight: '5px', color: 'red' }} /> Integration de Méthodes de Paiement</h4>
+                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Integration de Méthodes de Paiement</h4>
                 <p>Ajout des méthodes de paiement Iternationale (PayPal)</p>
               </div>
             </div>
@@ -961,7 +968,7 @@ ${formData.message}
             <div className="timeline-item future">
               <div className="timeline-date">2026</div>
               <div className="timeline-content">
-                <h4><FaCircle style={{ display: 'inline', marginRight: '5px', color: 'red' }} /> Recherche des Sponsors ou des Clients</h4>
+                <h4><FaCircle style={{ display: 'inline', marginRight: '5px', color: 'orange' }} /> Recherche des Sponsors ou des Clients</h4>
                 <p>En cours...</p>
               </div>
             </div>
@@ -1104,33 +1111,24 @@ ${formData.message}
             <h3>Détails de l'Investissement</h3>
             <div className="details-grid">
               <div className="detail-item">
-                <h4><FaBriefcase style={{ display: 'inline', marginRight: '5px' }} /> Structure</h4>
+                <h4><FaBriefcase style={{ display: 'inline', marginRight: '5px', color:'khaki' }} /> Structure</h4>
                 <p>Société à responsabilité limitée, prête pour l'investissement</p>
               </div>
               <div className="detail-item">
-                <h4><FaChartBar style={{ display: 'inline', marginRight: '5px' }} /> Évaluation</h4>
-                <p>Évaluation pré-money: $250,000 - $1,000,000 selon l'option</p>
+                <h4><FaChartBar style={{ display: 'inline', marginRight: '5px', color:'green' }} /> Évaluation</h4>
+                <p>Évaluation pré-money: $1,000 - $1,000,000 selon l'option</p>
               </div>
               <div className="detail-item">
-                <h4><FaBullseye style={{ display: 'inline', marginRight: '5px' }} /> Utilisation des Fonds</h4>
-                <p>60% développement, 25% marketing, 15% opérations</p>
+                <h4><FaBullseye style={{ display: 'inline', marginRight: '5px', color:'red' }} /> Utilisation des Fonds</h4>
+                <p>30% développement, 60% marketing, 10% opérations</p>
               </div>
               <div className="detail-item">
-                <h4><FaChartLine style={{ display: 'inline', marginRight: '5px' }} /> Projections</h4>
-                <p>ROI de 3x-5x dans les 3-5 ans</p>
+                <h4><FaChartLine style={{ display: 'inline', marginRight: '5px', color:'blue' }} /> Projections</h4>
+                <p>Dans les 1-3 ans</p>
               </div>
             </div>
           </div>
           
-          {/* Contenu étendu sur l'investissement */}
-          <div className="extended-content">
-            <h3>Potentiel de Retour sur Investissement</h3>
-            {extendedContent.slice(20, 25).map((paragraph, index) => (
-              <p key={index} className="extended-paragraph">
-                {paragraph}
-              </p>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -1150,7 +1148,7 @@ ${formData.message}
               
               <div className="contact-methods">
                 <div className="contact-method">
-                  <div className="method-icon"><FaWhatsapp /></div>
+                  <div className="method-icon" style={{backgroundColor:'green'}}><FaWhatsapp  /></div>
                   <div className="method-content">
                     <h4>WhatsApp</h4>
                     <a 
@@ -1181,7 +1179,7 @@ ${formData.message}
                 </div>
                 
                 <div className="contact-method">
-                  <div className="method-icon"><FaEnvelope /></div>
+                  <div className="method-icon" style={{backgroundColor:'orange'}}><FaEnvelope /></div>
                   <div className="method-content">
                     <h4>Emails</h4>
                     {contactInfo.emails.map((email, index) => (
@@ -1232,10 +1230,10 @@ ${formData.message}
                 <h4>Réseaux Sociaux</h4>
                 <div className="social-icons-placeholder">
                   {/* Espaces pour les réseaux sociaux */}
-                  <a href='https://linkedin.com/company/numeric-paper' target='_blank' className="social-icon-placeholder">LinkedIn</a><br />
-                  <a href='https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr' target='_blank' className="social-icon-placeholder">FaceBook</a><br />
-                  <a href='https://chat.whatsapp.com/IlJ6nzKm8MaLWH0zmx4PDX' target='_blank' className="social-icon-placeholder">WhatsApp</a><br />
-                  <a href='https://instagram.com/gentil.lenoir' target='_blank' className="social-icon-placeholder">Instagram</a>
+                  <a href='https://linkedin.com/company/numeric-paper' target='_blank' className="contact-link">LinkedIn</a>
+                  <a href='https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr' target='_blank' className="contact-link">FaceBook</a>
+                  <a href='https://chat.whatsapp.com/IlJ6nzKm8MaLWH0zmx4PDX' target='_blank' className="contact-link">WhatsApp</a>
+                  <a href='https://instagram.com/gentil.lenoir' target='_blank' className="contact-link">Instagram</a>
                 </div>
               </div>
             </div>
