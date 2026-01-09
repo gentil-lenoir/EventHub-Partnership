@@ -1,31 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import '../Css/Home.css';
-import '../Css/PromoAgent.css';
-import PromoAgentForm from './PromoAgentForm';
-import { 
-  FaStar, FaHandshake, FaMoneyBillWave, FaUserTie, FaCheckCircle, 
-  FaPaperPlane, FaTrophy, FaChartLine, FaGift, FaCrown, FaShieldAlt,
-  FaUsers, FaRocket, FaPercent, FaMedal, FaAward, FaLightbulb,
-  FaRegClock, FaChartBar, FaCoins, FaGlobe
-} from 'react-icons/fa';
 import Header from '../Components/Header';
+import '../Css/PromoAgent.css';
+import { 
+  FaPaperPlane, 
+  FaCheckCircle, 
+  FaUser, 
+  FaEnvelope, 
+  FaWhatsapp, 
+  FaFlag, 
+  FaCity, 
+  FaShareAlt,
+  FaLightbulb,
+  FaShieldAlt,
+  FaCrown
+} from 'react-icons/fa';
+
+interface FormData {
+  fullName: string;
+  email: string;
+  whatsapp: string;
+  nationality: string;
+  city: string;
+  socialMedia: string;
+  motivation: string;
+}
 
 const PromoAgentApplication: React.FC = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('hero');
+  const [formData, setFormData] = useState<FormData>({
+    fullName: '',
+    email: '',
+    whatsapp: '',
+    nationality: '',
+    city: '',
+    socialMedia: '',
+    motivation: ''
+  });
+
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [formStep, setFormStep] = useState(1);
   const [selectedTheme, setSelectedTheme] = useState<string>(() => {
     const savedTheme = localStorage.getItem('numeric-paper-theme');
     return savedTheme || 'dark';
   });
 
-  // Navigation items spécifiques pour la page PromoAgent
-  const promoNavItems = [
-    { id: 'hero', label: 'Accueil' },
-    { id: 'advantages', label: 'Avantages' },
-    { id: 'program', label: 'Programme' },
-    { id: 'testimonials', label: 'Témoignages' },
-    { id: 'apply', label: 'Postuler' },
-  ];
+  // Theme change effect
+  useEffect(() => {
+    localStorage.setItem('numeric-paper-theme', selectedTheme);
+    document.body.className = selectedTheme === 'light' ? 'light-theme' : 'dark-theme';
+  }, [selectedTheme]);
 
   // GTranslate Script Injection
   useEffect(() => {
@@ -45,35 +68,428 @@ const PromoAgentApplication: React.FC = () => {
     }
   }, []);
 
-  // Theme change effect
-  useEffect(() => {
-    localStorage.setItem('numeric-paper-theme', selectedTheme);
-    document.body.className = selectedTheme === 'light' ? 'light-theme' : 'dark-theme';
-  }, [selectedTheme]);
-
-  const handleFormSuccess = () => {
-    setFormSubmitted(true);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const scrollToSection = (sectionId: string) => {
-    setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
+  const nextStep = () => {
+    if (formStep < 3) {
+      setFormStep(formStep + 1);
     }
   };
+
+  const prevStep = () => {
+    if (formStep > 1) {
+      setFormStep(formStep - 1);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (formStep < 3) {
+      nextStep();
+      return;
+    }
+
+    setStatus('submitting');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/promo-agent/application', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+      } else {
+        setStatus('error');
+        setErrorMessage('Une erreur est survenue lors de l\'envoi. Veuillez réessayer plus tard.');
+      }
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage('Impossible de contacter le serveur. Vérifiez votre connexion.');
+    }
+  };
+
+  const formContent = (
+    <div className="multi-step-form">
+      {/* Progress Bar */}
+      <div className="form-progress">
+        <div className="progress-bar">
+          <div 
+            className="progress-fill" 
+            style={{ width: `${(formStep / 3) * 100}%` }}
+          ></div>
+        </div>
+        <div className="progress-steps">
+          {['Informations', 'Profil', 'Motivation'].map((step, index) => (
+            <div 
+              key={index} 
+              className={`progress-step ${formStep > index + 1 ? 'completed' : ''} ${formStep === index + 1 ? 'active' : ''}`}
+            >
+              <div className="step-number">{index + 1}</div>
+              <span className="step-label">{step}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="promo-agent-form">
+        {/* Step 1: Personal Information */}
+        {formStep === 1 && (
+          <div className="form-step">
+            <div className="step-header">
+              <FaUser className="step-icon" />
+              <h3>Informations Personnelles</h3>
+              <p>Commencez par nous dire qui vous êtes</p>
+            </div>
+            
+            <div className="form-grid">
+              <div className="form-group-promo">
+                <label htmlFor="fullName">
+                  <FaUser className="input-icon" />
+                  Nom Complet *
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Prénom et Nom"
+                  className="form-input-promo"
+                />
+                <div className="input-hint">Comme indiqué sur votre pièce d'identité</div>
+              </div>
+              
+              <div className="form-group-promo">
+                <label htmlFor="email">
+                  <FaEnvelope className="input-icon" />
+                  Email Professionnel *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="vous@domain.com"
+                  className="form-input-promo"
+                />
+                <div className="input-hint">Nous enverrons la confirmation ici</div>
+              </div>
+            </div>
+
+            <div className="form-grid">
+              <div className="form-group-promo">
+                <label htmlFor="whatsapp">
+                  <FaWhatsapp className="input-icon" />
+                  WhatsApp *
+                </label>
+                <input
+                  type="tel"
+                  id="whatsapp"
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="+243 XX XXX XXXX"
+                  className="form-input-promo"
+                />
+                <div className="input-hint">Notre recruteur vous contactera ici</div>
+              </div>
+
+              <div className="form-group-promo">
+                <label htmlFor="nationality">
+                  <FaFlag className="input-icon" />
+                  Nationalité *
+                </label>
+                <input
+                  type="text"
+                  id="nationality"
+                  name="nationality"
+                  value={formData.nationality}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Ex: Congolaise"
+                  className="form-input-promo"
+                />
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button 
+                type="button" 
+                onClick={nextStep}
+                className="btn-promo-primary btn-next"
+              >
+                Suivant
+                <span className="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 2: Location & Social Media */}
+        {formStep === 2 && (
+          <div className="form-step">
+            <div className="step-header">
+              <FaCity className="step-icon" />
+              <h3>Localisation & Réseaux</h3>
+              <p>Où êtes-vous et quel est votre réseau ?</p>
+            </div>
+            
+            <div className="form-grid">
+              <div className="form-group-promo">
+                <label htmlFor="city">
+                  <FaCity className="input-icon" />
+                  Ville de Résidence *
+                </label>
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Ex: Goma, Kinshasa, etc."
+                  className="form-input-promo"
+                />
+              </div>
+
+              <div className="form-group-promo">
+                <label htmlFor="socialMedia">
+                  <FaShareAlt className="input-icon" />
+                  Réseaux Sociaux (Optionnel)
+                </label>
+                <input
+                  type="text"
+                  id="socialMedia"
+                  name="socialMedia"
+                  value={formData.socialMedia}
+                  onChange={handleInputChange}
+                  placeholder="Facebook, Instagram, TikTok, LinkedIn"
+                  className="form-input-promo"
+                />
+                <div className="input-hint">
+                  Liens ou noms d'utilisateur - Améliore vos chances d'acceptation
+                </div>
+              </div>
+            </div>
+
+            <div className="social-tips">
+              <FaLightbulb className="tips-icon" />
+              <div className="tips-content">
+                <h4>Astuce pour augmenter vos chances</h4>
+                <p>
+                  Les agents avec un bon réseau social sont souvent acceptés plus rapidement.
+                  Partagez vos comptes les plus actifs.
+                </p>
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button 
+                type="button" 
+                onClick={prevStep}
+                className="btn-promo-secondary"
+              >
+                ← Retour
+              </button>
+              <button 
+                type="button" 
+                onClick={nextStep}
+                className="btn-promo-primary btn-next"
+              >
+                Suivant
+                <span className="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 3: Motivation */}
+        {formStep === 3 && (
+          <div className="form-step">
+            <div className="step-header">
+              <FaLightbulb className="step-icon" />
+              <h3>Votre Motivation</h3>
+              <p>Convainquez-nous de votre potentiel</p>
+            </div>
+            
+            <div className="form-group-promo">
+              <label htmlFor="motivation">
+                Pourquoi voulez-vous devenir Agent Numeric-Paper ?
+              </label>
+              <textarea
+                id="motivation"
+                name="motivation"
+                value={formData.motivation}
+                onChange={handleInputChange}
+                required
+                placeholder={`Partagez avec nous :
+• Votre expérience dans la vente ou le marketing
+• Votre réseau et comment vous comptez l'utiliser
+• Vos objectifs financiers
+• Ce qui vous motive particulièrement chez Numeric-Paper
+• Vos idées pour promouvoir nos services`}
+                rows={8}
+                className="form-textarea-promo"
+              />
+              <div className="textarea-hint">
+                Minimum 200 caractères. Soyez précis et convaincant !
+              </div>
+            </div>
+
+            <div className="form-counter">
+              Caractères: {formData.motivation.length} / 500
+            </div>
+
+            {status === 'error' && (
+              <div className="form-error">
+                <div className="error-icon">⚠️</div>
+                <div className="error-message">{errorMessage}</div>
+              </div>
+            )}
+
+            <div className="form-actions">
+              <button 
+                type="button" 
+                onClick={prevStep}
+                className="btn-promo-secondary"
+              >
+                ← Retour
+              </button>
+              <button 
+                type="submit" 
+                className="btn-promo-primary btn-submit"
+                disabled={status === 'submitting'}
+              >
+                {status === 'submitting' ? (
+                  <>
+                    <span className="spinner"></span>
+                    Envoi en cours...
+                  </>
+                ) : (
+                  <>
+                    Envoyer ma candidature
+                    <FaPaperPlane className="submit-icon" />
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="form-disclaimer">
+              <FaShieldAlt className="disclaimer-icon" />
+              <p>
+                Vos informations sont sécurisées et ne seront jamais partagées avec des tiers.
+                En soumettant ce formulaire, vous acceptez nos conditions d'utilisation.
+              </p>
+            </div>
+          </div>
+        )}
+      </form>
+    </div>
+  );
+
+  if (status === 'success') {
+    return (
+      <div className="promo-agent-container">
+        <Header 
+          selectedTheme={selectedTheme}
+          navItems={[{ id: 'home', label: 'Accueil' }]}
+        />
+        <div className="section-container" style={{ paddingTop: '8rem', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="form-success-container" style={{ width: '100%', maxWidth: '800px' }}>
+            <div className="success-animation">
+              <FaCheckCircle className="success-icon" />
+              <div className="success-checkmark"></div>
+            </div>
+            <div className="success-content">
+              <h3>🎉 Candidature Envoyée avec Succès !</h3>
+              <p className="success-message">
+                Félicitations ! Votre profil a été soumis avec succès à notre équipe de recrutement.
+              </p>
+              <div className="success-details">
+                <div className="detail-card">
+                  <FaEnvelope className="detail-icon" />
+                  <div>
+                    <h4>Confirmation Email</h4>
+                    <p>Vous recevrez un email de confirmation dans les 24h</p>
+                  </div>
+                </div>
+                <div className="detail-card">
+                  <FaWhatsapp className="detail-icon" />
+                  <div>
+                    <h4>Entretien WhatsApp</h4>
+                    <p>Notre recruteur vous contactera sous 48h</p>
+                  </div>
+                </div>
+                <div className="detail-card">
+                  <FaShieldAlt className="detail-icon" />
+                  <div>
+                    <h4>Processus de Vérification</h4>
+                    <p>Votre profil sera examiné dans les 72h</p>
+                  </div>
+                </div>
+              </div>
+              <div className="success-actions">
+                <button 
+                  className="btn-promo-secondary"
+                  onClick={() => {
+                    setStatus('idle');
+                    setFormStep(1);
+                    setFormData({
+                      fullName: '',
+                      email: '',
+                      whatsapp: '',
+                      nationality: '',
+                      city: '',
+                      socialMedia: '',
+                      motivation: ''
+                    });
+                  }}
+                >
+                  Postuler pour un ami
+                </button>
+                <a href="/" className="btn-promo-primary">
+                  Retour à l'accueil
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer className="promo-footer">
+          <div className="footer-content">
+            <div className="footer-logo">
+              <FaCrown />
+              <span>NumericPaper Promo</span>
+            </div>
+            <p className="footer-copyright">
+              © 2024 NumericPaper. Tous droits réservés.
+            </p>
+          </div>
+        </footer>
+      </div>
+    );
+  }
 
   return (
     <div className="promo-agent-container">
       <Header 
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-        scrollToSection={scrollToSection}
         selectedTheme={selectedTheme}
-        navItems={promoNavItems}
+        navItems={[{ id: 'home', label: 'Accueil' }]}
       />
 
       {/* Language and Theme Selector */}
@@ -94,309 +510,21 @@ const PromoAgentApplication: React.FC = () => {
         </div>
       </div>
 
-      {/* Section Hero */}
-      <section id="hero" className="promo-hero-section">
-        <div className="promo-hero-background">
-          <div className="particles-container">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className="particle"></div>
-            ))}
-          </div>
-          <div className="gradient-overlay-promo"></div>
-        </div>
-        
-        <div className="promo-hero-content">
-          <div className="promo-hero-badge animate-pulse">
-            <FaUserTie className="badge-icon" />
-            <span>Recrutement Agents VIP</span>
-          </div>
-          
-          <h1 style={{fontSize:'4rem'}}>
-            <span className="gradient-text">Devenez Ambassadeur</span>
-            <br />
-            <span className="highlight-glow">Numeric-Paper</span>
-          </h1>
-          
-          <p className="promo-hero-subtitle">
-            Transformez votre réseau en revenus. Rejoignez le programme d'affiliation le plus lucratif
-            <br />
-            dans l'événementiel digital et gagnez jusqu'à <span className="earning-highlight">20% de commission</span>.
+      <div className="section-container" style={{ paddingTop: '8rem', paddingBottom: '4rem', minHeight: 'calc(100vh - 300px)' }}>
+        <div className="section-header-promo">
+          <h2>
+            <FaUser className="header-icon" />
+            <span>Candidature </span>
+            <span className="highlight">Agent</span>
+          </h2>
+          <p className="section-subtitle-promo">
+            Rejoignez l'équipe Numeric-Paper et commencez à gagner des revenus
           </p>
-
-          <div className="promo-hero-stats">
-            <div className="stat-card">
-              <FaCoins className="stat-icon" />
-              <div className="stat-content">
-                <h3>500+</h3>
-                <p>Commissions Payées</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <FaUsers className="stat-icon" />
-              <div className="stat-content">
-                <h3>150+</h3>
-                <p>Agents Actifs</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <FaGlobe className="stat-icon" />
-              <div className="stat-content">
-                <h3>15+</h3>
-                <p>Pays</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
 
-      {/* Section Avantages */}
-      <section id="advantages" className="promo-section advantages-section">
-        <div className="section-container">
-          <div className="section-header-promo">
-            <h2>
-              <FaAward className="header-icon" />
-              <span>Pourquoi </span>
-              <span className="highlight">Nous Rejoindre</span>
-            </h2>
-            <p className="section-subtitle-promo">
-              Des avantages exclusifs pour nos ambassadeurs
-            </p>
-          </div>
+        {formContent}
+      </div>
 
-          <div className="advantages-grid">
-            <div className="advantage-card glow-card">
-              <div className="advantage-icon-wrapper">
-                <FaShieldAlt className="advantage-icon" />
-              </div>
-              <h3 className="advantage-title">Support Permanent</h3>
-              <p className="advantage-description">
-                Équipe dédiée 24/7 pour vous accompagner, outils marketing exclusifs et formations régulières.
-              </p>
-              <div className="advantage-tag">VIP</div>
-            </div>
-
-            <div className="advantage-card glow-card">
-              <div className="advantage-icon-wrapper">
-                <FaMoneyBillWave className="advantage-icon" />
-              </div>
-              <h3 className="advantage-title">Paiements Instantanés</h3>
-              <p className="advantage-description">
-                Recevez vos commissions en moins de 24h via Mobile Money, PayPal ou virement bancaire.
-              </p>
-              <div className="advantage-tag">RAPIDE</div>
-            </div>
-
-            <div className="advantage-card glow-card">
-              <div className="advantage-icon-wrapper">
-                <FaChartBar className="advantage-icon" />
-              </div>
-              <h3 className="advantage-title">Tableau de Bord</h3>
-              <p className="advantage-description">
-                Suivi en temps réel de vos performances, statistiques détaillées et prévisions de gains.
-              </p>
-              <div className="advantage-tag">PRO</div>
-            </div>
-
-            <div className="advantage-card glow-card">
-              <div className="advantage-icon-wrapper">
-                <FaGift className="advantage-icon" />
-              </div>
-              <h3 className="advantage-title">Bonus Mensuels</h3>
-              <p className="advantage-description">
-                Récompenses supplémentaires, cadeaux et voyages pour les meilleurs performeurs.
-              </p>
-              <div className="advantage-tag">EXCLUSIF</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Programme d'Affiliation */}
-      <section id="program" className="promo-section program-section">
-        <div className="section-container">
-          <div className="section-header-promo">
-            <h2>
-              <FaTrophy className="header-icon" />
-              <span>Programme </span>
-              <span className="highlight">5 Étoiles</span>
-            </h2>
-            <p className="section-subtitle-promo">
-              Évoluez et maximisez vos revenus avec notre système de progression
-            </p>
-          </div>
-
-          <div className="star-progression">
-            {[1, 2, 3, 4, 5].map((stars) => (
-              <div key={stars} className="star-level">
-                <div className="star-level-header">
-                  <div className="stars-display">
-                    {Array(stars).fill(0).map((_, i) => (
-                      <FaStar key={i} className="progression-star" />
-                    ))}
-                  </div>
-                  <span className="level-name">
-                    Niveau {stars} {stars === 5 && <FaCrown style={{ marginLeft: '5px' }} />}
-                  </span>
-                </div>
-                <div className="level-details">
-                  <div className="commission-badge">
-                    <FaPercent /> {10 + (stars - 1) * 2.5}%
-                  </div>
-                  <p className="level-condition">
-                    {stars === 1 && "Débutant - Lancez-vous !"}
-                    {stars === 2 && "Intermédiaire - En progression"}
-                    {stars === 3 && "Confirmé - Expert reconnu"}
-                    {stars === 4 && "Premium - Élite"}
-                    {stars === 5 && "VIP - Ambassadeur Principal"}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Table de commission */}
-          <div className="commission-table-container">
-            <h3 className="table-title">
-              <FaChartLine style={{ marginRight: '10px' }} />
-              Grille de Rémunération
-            </h3>
-            <div className="commission-table">
-              <div className="table-header-promo">
-                <div className="header-cell-promo">Étoiles</div>
-                <div className="header-cell-promo">Commission</div>
-                <div className="header-cell-promo">Seuil</div>
-                <div className="header-cell-promo">Bonus</div>
-              </div>
-              
-              {[
-                { stars: 1, percent: "10%", threshold: "1-2 événements", bonus: "Accès rapide" },
-                { stars: 2, percent: "12.5%", threshold: "3-5 événements", bonus: "+2% sur gros deals" },
-                { stars: 3, percent: "15%", threshold: "6-8 événements", bonus: "Support prioritaire" },
-                { stars: 4, percent: "17.5%", threshold: "9-11 événements", bonus: "Formation avancée" },
-                { stars: 5, percent: "20%", threshold: "12+ événements", bonus: "Statut VIP" },
-              ].map((level, idx) => (
-                <div key={idx} className="table-row-promo hover-effect">
-                  <div className="table-cell-promo">
-                    <div className="stars-cell">
-                      {Array(level.stars).fill(0).map((_, i) => (
-                        <FaStar key={i} className="table-star" />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="table-cell-promo">
-                    <span className="commission-value">{level.percent}</span>
-                  </div>
-                  <div className="table-cell-promo">
-                    <span className="threshold-badge">{level.threshold}</span>
-                  </div>
-                  <div className="table-cell-promo">
-                    <span className="bonus-tag">
-                      <FaRocket style={{ marginRight: '5px' }} />
-                      {level.bonus}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="bonus-notice">
-              <div className="bonus-icon">
-                <FaLightbulb />
-              </div>
-              <div className="bonus-content">
-                <h4>Accélérateur de Carrière</h4>
-                <p>
-                  <strong>Bonus Spécial :</strong> Une affiliation supérieure à 500$ vous fait 
-                  monter d'un niveau immédiatement !
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Témoignages */}
-      <section id="testimonials" className="promo-section testimonials-section">
-        <div className="section-container">
-          <div className="section-header-promo">
-            <h2>
-              <FaUsers className="header-icon" />
-              <span>Ils ont </span>
-              <span className="highlight">Réussi</span>
-            </h2>
-            <p className="section-subtitle-promo">
-              Découvrez les témoignages de nos ambassadeurs
-            </p>
-          </div>
-
-          <div className="testimonials-grid">
-            {[
-              { name: "Sarah K.", role: "Agent 5 Étoiles", earnings: "$2,500/mois", testimonial: "En 6 mois, j'ai transformé mon réseau universitaire en revenu stable. Le support est exceptionnel !" },
-              { name: "David M.", role: "Agent 4 Étoiles", earnings: "$1,800/mois", testimonial: "Le système de progression est transparent. Les paiements sont toujours à l'heure." },
-              { name: "Lisa T.", role: "Agent 3 Étoiles", earnings: "$950/mois", testimonial: "Parfait pour un complément de revenu. La formation m'a beaucoup aidé à démarrer." },
-            ].map((testimonial, idx) => (
-              <div key={idx} className="testimonial-card">
-                <div className="testimonial-header">
-                  <div className="testimonial-avatar">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div className="testimonial-info">
-                    <h4>{testimonial.name}</h4>
-                    <p className="testimonial-role">{testimonial.role}</p>
-                  </div>
-                  <div className="testimonial-earnings">
-                    {testimonial.earnings}
-                  </div>
-                </div>
-                <p className="testimonial-text">"{testimonial.testimonial}"</p>
-                <div className="testimonial-rating">
-                  {Array(5).fill(0).map((_, i) => (
-                    <FaStar key={i} className="testimonial-star" />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Section Formulaire */}
-      <section id="apply" className="promo-section form-section">
-        <div className="section-container">
-          <div className="form-header">
-            <div className="form-header-content">
-              <h2>
-                <FaRegClock className="header-icon" />
-                <span>Postulez </span>
-                <span className="highlight">Maintenant</span>
-              </h2>
-              <p className="form-subtitle">
-                Rejoignez notre équipe d'élite. Les places sont limitées.
-              </p>
-              <div className="application-stats">
-                <div className="stat-item">
-                  <FaUserTie />
-                  <span>12 places restantes</span>
-                </div>
-                <div className="stat-item">
-                  <FaChartLine />
-                  <span>Délai moyen: 48h</span>
-                </div>
-              </div>
-            </div>
-            <div className="form-cta">
-              <FaCheckCircle className="cta-icon" />
-              <p>
-                <strong>Garantie de réponse</strong> sous 72h maximum
-              </p>
-            </div>
-          </div>
-
-          <PromoAgentForm onSuccess={handleFormSuccess} />
-        </div>
-      </section>
-
-      {/* Footer */}
       <footer className="promo-footer">
         <div className="footer-content">
           <div className="footer-logo">
@@ -421,4 +549,3 @@ const PromoAgentApplication: React.FC = () => {
 };
 
 export default PromoAgentApplication;
-
