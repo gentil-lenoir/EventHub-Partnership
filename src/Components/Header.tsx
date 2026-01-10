@@ -42,17 +42,19 @@ const Header: React.FC<HeaderProps> = ({
     <nav className="main-nav">
       <div className="nav-container">
         <div className="logo">
-          <span className="logo-icon">
-            <img 
-              src={selectedTheme === 'dark' ? "/img/Numeric-Paper-white.png" : "/favicon.ico"} 
-              alt="" 
-              width="40px" 
-            />
-          </span>
-          <span className="logo-text">
-            <strong><span translate="no">NumericPaper</span></strong>
-            <small>À la recherche de <span style={{color:'white', fontWeight:'bold'}}>Partenaire</span></small>
-          </span>
+          <a href="https://numeric-paper.com" target="_blank" rel="noopener noreferrer" className="logo-link">
+            <span className="logo-icon">
+              <img 
+                src={selectedTheme === 'dark' ? "/img/Numeric-Paper-white.png" : "/favicon.ico"} 
+                alt="" 
+                width="40px" 
+              />
+            </span>
+            <span className="logo-text">
+              <strong><span translate="no">Numeric-Paper</span></strong>
+              <small>À la recherche de <span style={{color:'white', fontWeight:'bold'}}>Partenaire</span></small>
+            </span>
+          </a>
         </div>
         
         <ul className="nav-menu">

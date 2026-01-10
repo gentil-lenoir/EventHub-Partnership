@@ -216,7 +216,6 @@ const totalPrice = guests * tier.pricePerInvite;
 ### Réseaux Sociaux
 💼 **[LinkedIn](https://www.linkedin.com/in/gentil-le-noir-mali-ya-mungu-651751289)**  
 📘 **[Facebook](https://facebook.com/profile.php?id=61576314604030)**  
-📷 **[Instagram](https://instagram.com/gentil.lenoir)**
 
 ---
 

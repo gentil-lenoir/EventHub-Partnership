@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import '../Css/Home.css'
 import Header from '../Components/Header';
 import { 
   FaLock, FaCalendarAlt, FaMoneyBillWave, FaPalette, FaChartBar, FaGlobe, 
   FaRocket, FaBullseye, FaLightbulb, FaChartLine, FaCheck, FaSync, 
   FaVideo, FaHandshake, FaBuilding, FaBriefcase, FaPhone, FaEnvelope, 
-  FaFileAlt, FaWhatsapp, FaCheckCircle, FaCircle, FaSun, FaMoon
+  FaFileAlt, FaWhatsapp, FaCheckCircle, FaCircle, FaSun, FaMoon,
+  FaUserTie, FaPercent, FaCrown, FaExternalLinkAlt
 } from 'react-icons/fa';
 
 // Types et interfaces
 interface ContactInfo {
-  whatsapp: string;
+  whatsapp: string[];
   phoneNumbers: string[];
   emails: string[];
-  bioUrl: string;
   portfolioUrl: string;
-  contactsUrl: string;
 }
 
 interface PricingTier {
@@ -51,7 +51,7 @@ interface FAQItem {
 // Données du projet
 const projectData = {
   name: "Numeric-Paper",
-  company: "Khaleen",
+  company: "Numeric-Paper",
   tagline: "La révolution des invitations virtuelles sécurisées",
   description: "Plateforme de création d'événements, d'invitations virtuelles, de cartes digitales et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.",
   fullName: "GENTIL LE NOIR MALIYAMUNGU BALEGAMIRE",
@@ -59,12 +59,10 @@ const projectData = {
 
 // Données de contact
 const contactInfo: ContactInfo = {
-  whatsapp: "+243978089552",
-  phoneNumbers: ["+250729606087", "+250792871962", "+2413978089552"],
-  emails: ["gentillenoir075@gmail.com", "gentillenoir075@outlook.com", "khaleen.sites@outlook.com"],
-  bioUrl: "https://gentil-lenoir.vercel.app/bio",
+  whatsapp: ["+250792871962", "+243978089552"],
+  phoneNumbers: ["+250729606087","+243978089552", "+250792871962"],
+  emails: ["numeric-paper@outlook.com", "gentillenoir075@outlook.com"],
   portfolioUrl: "https://gentil-lenoir.vercel.app/portfolio",
-  contactsUrl: "https://gentil-lenoir.vercel.app/contacts",
 };
 
 // Tiers de tarification
@@ -329,7 +327,7 @@ ${formData.message}
 📱 Réponse WhatsApp préférée`;
 
     // Formater le numéro WhatsApp (enlever le +)
-    const whatsappNumber = contactInfo.whatsapp.replace('+', '');
+    const whatsappNumber = contactInfo.whatsapp[0].replace('+', '');
     
     // Créer l'URL WhatsApp
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -450,22 +448,22 @@ ${formData.message}
             {projectData.tagline} - Créez, gérez et monétisez vos événements avec notre plateforme tout-en-un
           </p>
           
-          <div className="hero-stats">
-            <div className="stat-item">
-              <div className="stat-number">100%</div>
-              <div className="stat-label">Sécurisé</div>
+          <div className="hero-stats" style={{ gap: '15px', marginTop: '30px' }}>
+            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
+              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>100%</div>
+              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Sécurisé</div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">0%</div>
-              <div className="stat-label">Copie possible</div>
+            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
+              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>0%</div>
+              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Copie possible</div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">70%</div>
-              <div className="stat-label">Économie</div>
+            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
+              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>70%</div>
+              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Économie</div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">24/7</div>
-              <div className="stat-label">Support</div>
+            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
+              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>24/7</div>
+              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Support</div>
             </div>
           </div>
           
@@ -482,6 +480,10 @@ ${formData.message}
             >
               Investir Maintenant
             </button>
+            <Link to="/promo-agent/application" className="btn-agent btn-large">
+              <FaUserTie style={{ marginRight: '8px' }} />
+              Devenir Agent Promo
+            </Link>
           </div>
         </div>
         
@@ -610,13 +612,13 @@ ${formData.message}
           <div className="extended-content">
             <h3>Technologie Sous-jacente</h3>
             <p style={{textAlign:'justify'}}>
-              Numeric-Paper représente une innovation majeure dans le domaine de la gestion d'événements et des invitations digitales. 
+              <strong translate='no'>Numeric-Paper</strong> représente une innovation majeure dans le domaine de la gestion d'événements et des invitations digitales. 
               Notre plateforme combine sécurité avancée, facilité d'utilisation et design moderne pour offrir une expérience unique 
               aux organisateurs et participants d'événements. Dans un monde de plus en plus digital, la nécessité de solutions sécurisées 
               pour la gestion des accès aux événements n'a jamais été aussi critique. Les méthodes traditionnelles d'invitation papier 
               présentent de nombreuses limitations : coûts élevés, impact environnemental, risque de contrefaçon, et manque de flexibilité. <br /> <br />
                     
-              L'équipe derrière Numeric-Paper possède une expertise approfondie dans les technologies blockchain, la cryptographie 
+              L'équipe derrière <strong translate='no'>Numeric-Paper</strong> possède une expertise approfondie dans les technologies blockchain, la cryptographie 
               et le développement d'applications sécurisées. Notre Entreprise, <strong translate='no' style={{color:'blueviolet'}}>Numeric-Paper</strong>, aumoins 3 ans d'expérience 
               dans le développement de solutions digitales innovantes pour le marché africain et international. Son portfolio comprend 
               plusieurs applications à succès dans les domaines de la finance digitale, de l'e-commerce et des technologies mobiles. <br /> <br />
@@ -631,14 +633,14 @@ ${formData.message}
               partenariats stratégiques avec des entreprises technologiques leaders. Nous sommes ouverts à diverses formes de 
               collaboration, qu'il s'agisse d'un investissement en capital, d'un partenariat stratégique, ou d'une acquisition. <br /> <br />
               
-              La technologie derrière Numeric-Paper a été rigoureusement testée et validée dans des conditions réelles. 
+              La technologie derrière <strong translate='no'>Numeric-Paper</strong> a été rigoureusement testée et validée dans des conditions réelles. 
               Nous avons mené des tests bêta avec plusieurs organisateurs d'événements en test, obtenant un taux de satisfaction de 94%. 
               Les retours des utilisateurs ont été extrêmement positifs, avec des éloges particuliers pour la facilité d'utilisation, 
               la fiabilité du système, et la qualité du support client.
             </p>
 
             <p style={{textAlign:'justify'}}>
-              En termes de différenciation concurrentielle, Numeric-Paper offre plusieurs avantages uniques : 
+              En termes de différenciation concurrentielle, <strong translate='no'>Numeric-Paper</strong> offre plusieurs avantages uniques : 
             </p>
 
             <ol>
@@ -699,30 +701,7 @@ ${formData.message}
                 </div>
               </div>
             </div>
-            
-            {/* <div className="demo-audio">
-              <h3>Présentations Audio</h3>
-              <div className="audio-placeholders">
-                <div className="audio-placeholder">
-                  <div className="audio-icon">🎵</div>
-                  <div className="audio-info">
-                    <h4>Présentation du Projet</h4>
-                    <p>Audio 1 - À insérer</p>
-                    <small>Ligne 872 - Remplacez par votre premier fichier audio</small>
-                  </div>
-                </div>
-                
-                <div className="audio-placeholder">
-                  <div className="audio-icon">🎵</div>
-                  <div className="audio-info">
-                    <h4>Témoignage Client</h4>
-                    <p>Audio 2 - À insérer</p>
-                    <small>Ligne 880 - Remplacez par votre deuxième fichier audio</small>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-            
+                        
             <div className="demo-images">
               <h3>Galerie d'Images</h3><br />
               <div className="image-grid">
@@ -908,7 +887,7 @@ ${formData.message}
             </div>
 
             <div className="timeline-item future">
-              <div className="timeline-date">Oct 2024</div>
+              <div className="timeline-date">Oct 2026</div>
               <div className="timeline-content">
                 <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }}/>Exploitation et Développement plus profonde</h4>
                 <p>Programmation et Développement des fonctions plus complexes et internes</p>
@@ -916,7 +895,7 @@ ${formData.message}
             </div>
         
             <div className="timeline-item future">
-              <div className="timeline-date">Q2 2024</div>
+              <div className="timeline-date">Q2 2026</div>
               <div className="timeline-content">
                 <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Finalisation et Corrections</h4>
                 <p>Finalisation des Fonctions Principaux et Corrections de bugs ignorés</p>
@@ -1083,6 +1062,21 @@ ${formData.message}
           
           <div className="investment-details">
             <h3>Détails de l'Investissement</h3>
+            
+            <div className="promo-agent-cta">
+              <div className="cta-content">
+                <div className="cta-icon"><FaUserTie /></div>
+                <div className="cta-text">
+                  <h4>Vous voulez générer des revenus ?</h4>
+                  <p>Rejoignez notre programme d'affiliation et gagnez jusqu'à 20% de commission sur chaque événement référé !</p>
+                </div>
+                <Link to="/promo-agent" className="btn-promo-agent">
+                  Découvrir le Programme
+                  <FaPercent style={{ marginLeft: '8px' }} />
+                </Link>
+              </div>
+            </div>
+            
             <div className="details-grid">
               <div className="detail-item">
                 <h4><FaBriefcase style={{ display: 'inline', marginRight: '5px', color:'khaki' }} /> Structure</h4>
@@ -1125,14 +1119,17 @@ ${formData.message}
                   <div className="method-icon" style={{backgroundColor:'green'}}><FaWhatsapp  /></div>
                   <div className="method-content">
                     <h4>WhatsApp</h4>
-                    <a 
-                      href={`https://wa.me/${contactInfo.whatsapp.replace('+', '')}?text=Bonjour%20Je%20viens%20Sponsoriser%20ou%20Acheter%20Numeric-Paper`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="contact-link"
-                    >
-                      {contactInfo.whatsapp}
-                    </a>
+                    {contactInfo.whatsapp.map((number, index) => (
+                      <a 
+                        key={index}
+                        href={`https://wa.me/${number.replace('+', '')}?text=Bonjour%20Je%20viens%20de%20voir%20Numeric-Paper`}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="contact-link"
+                      >
+                        {number}
+                      </a>
+                    ))}
                   </div>
                 </div>
                 
@@ -1206,8 +1203,7 @@ ${formData.message}
                   {/* Espaces pour les réseaux sociaux */}
                   <a href='https://linkedin.com/company/numeric-paper' target='_blank' className="contact-link">LinkedIn</a>
                   <a href='https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr' target='_blank' className="contact-link">FaceBook</a>
-                  <a href='https://chat.whatsapp.com/IlJ6nzKm8MaLWH0zmx4PDX' target='_blank' className="contact-link">WhatsApp</a>
-                  <a href='https://instagram.com/gentil.lenoir' target='_blank' className="contact-link">Instagram</a>
+                  <a href='https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D' target='_blank' className="contact-link">WhatsApp</a>
                 </div>
               </div>
             </div>
@@ -1297,22 +1293,74 @@ ${formData.message}
         </div>
       </section>
 
+      {/* Footer avec liens vers numeric-paper.com */}
+      <footer className="numeric-paper-footer">
+        <div className="footer-container">
+          <div className="footer-main">
+            {/* Logo et description */}
+            <div className="footer-brand">
+              <p className="footer-description">
+                Plateforme de création d'événements, d'invitations virtuelles et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.
+              </p>
+              <div className="footer-social">
+                <a href="https://linkedin.com/company/numeric-paper" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
+                <a href="https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
+                <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">WhatsApp</a>
+              </div>
+            </div>
+
+            {/* Liens rapides */}
+            <div className="footer-links-section">
+              <h4>Liens Rapides</h4>
+              <ul className="footer-links">
+                <li><a href="https://numeric-paper.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
+                <li><a href="https://numeric-paper.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
+                <li><a href="https://numeric-paper.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
+                <li><a href="https://numeric-paper.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
+              </ul>
+            </div>
+
+            {/* Liens légaux */}
+            <div className="footer-links-section">
+              <h4>Légal</h4>
+              <ul className="footer-links">
+                <li><a href="https://numeric-paper.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
+                <li><a href="https://numeric-paper.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
+                <li><a href="https://numeric-paper.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
+                <li><a href="https://numeric-paper.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div className="footer-contact">
+              <h4>Contactez-nous</h4>
+              <div className="footer-contact-item">
+                <FaEnvelope />
+                <a href="mailto:numeric-paper@outlook.com">numeric-paper@outlook.com</a>
+              </div>
+              <div className="footer-contact-item">
+                <FaWhatsapp />
+                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20Numeric-Paper" target="_blank" rel="noopener noreferrer">+250 792 871 952</a>
+              </div>
+              <a href="https://numeric-paper.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
+                <FaGlobe /> Visitez numeric-paper.com
+              </a>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="footer-bottom">
+            <p>&copy; 2026 <span translate="no">Numeric-Paper</span>. Tous droits réservés.</p>
+            <p className="footer-powered">
+              Propulsé par <a href="https://numeric-paper.com" target="_blank" rel="noopener noreferrer"><span translate="no">Numeric-Paper</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
+            </p>
+          </div>
+        </div>
+      </footer>
+
     </div>
   );
 };
 
 
-// Styles CSS (une partie intégrée pour économiser de l'espace)
-const HomeStyles = `
-  .numeric-paper-container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-  
-  /* Les styles complets sont dans le fichier CSS séparé */
-`;
-
 export default Home;
-

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../Css/Home.css';
 import '../Css/PromoAgent.css';
 import { 
   FaStar, FaHandshake, FaMoneyBillWave, FaUserTie, FaCheckCircle, 
   FaPaperPlane, FaTrophy, FaChartLine, FaGift, FaCrown, FaShieldAlt,
   FaUsers, FaRocket, FaPercent, FaMedal, FaAward, FaLightbulb,
-  FaRegClock, FaChartBar, FaCoins, FaGlobe
+  FaRegClock, FaChartBar, FaCoins, FaGlobe, FaArrowRight, FaHome,
+  FaEnvelope, FaPhone, FaWhatsapp, FaExternalLinkAlt
 } from 'react-icons/fa';
 import Header from '../Components/Header';
 
@@ -25,6 +27,11 @@ const PromoAgent: React.FC = () => {
     { id: 'testimonials', label: 'Témoignages' },
     { id: 'apply', label: 'Postuler' },
   ];
+
+  // Fonction pour naviguer vers Home
+  const goToHome = () => {
+    window.location.href = '/';
+  };
 
   // GTranslate Script Injection
   useEffect(() => {
@@ -113,7 +120,7 @@ const PromoAgent: React.FC = () => {
           <h1 style={{fontSize:'4rem'}}>
             <span className="gradient-text">Devenez Ambassadeur</span>
             <br />
-            <span className="highlight-glow">Numeric-Paper</span>
+            <span className="highlight-glow" translate='no'>Numeric-Paper</span>
           </h1>
           
           <p className="promo-hero-subtitle">
@@ -160,6 +167,10 @@ const PromoAgent: React.FC = () => {
             <p className="section-subtitle-promo">
               Des avantages exclusifs pour nos ambassadeurs
             </p>
+            <Link to="/promo-agent/application" className="btn-apply-now">
+              Appliquez Maintenant
+              <FaArrowRight style={{ marginLeft: '8px' }} />
+            </Link>
           </div>
 
           <div className="advantages-grid">
@@ -212,7 +223,7 @@ const PromoAgent: React.FC = () => {
 
       {/* Programme d'Affiliation */}
       <section id="program" className="promo-section program-section">
-        <div className="section-container">
+        {/* <div className="section-container"> */}
           <div className="section-header-promo">
             <h2>
               <FaTrophy className="header-icon" />
@@ -296,19 +307,16 @@ const PromoAgent: React.FC = () => {
                   </div>
                 </div>
               ))}
-            </div>
-            
-            <div className="bonus-notice">
-              <div className="bonus-icon">
-                <FaLightbulb />
-              </div>
-              <div className="bonus-content">
-                <h4>Accélérateur de Carrière</h4>
-                <p>
-                  <strong>Bonus Spécial :</strong> Une affiliation supérieure à 500$ vous fait 
-                  monter d'un niveau immédiatement !
-                </p>
-              </div>
+          </div>
+
+          {/* Accélérateur de Carrière */}
+          <div className="bonus-notice">
+            <div className="bonus-content" style={{marginTop: '1.5rem'}}>
+              <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><FaRocket /> Accélérateur de Carrière</h4>
+              <p>
+                <strong>Bonus Spécial :</strong> Une affiliation supérieure à 500$ vous fait 
+                monter d'un niveau immédiatement !
+              </p>
             </div>
           </div>
         </div>
@@ -316,7 +324,7 @@ const PromoAgent: React.FC = () => {
 
       {/* Témoignages */}
       <section id="testimonials" className="promo-section testimonials-section">
-        <div className="section-container">
+        <div className="section-container" style={{marginTop: '-6rem'}}>
           <div className="section-header-promo">
             <h2>
               <FaUsers className="header-icon" />
@@ -326,6 +334,10 @@ const PromoAgent: React.FC = () => {
             <p className="section-subtitle-promo">
               Découvrez les témoignages de nos ambassadeurs
             </p>
+            <Link to="/promo-agent/application" className="btn-join-them">
+              Rejoignez-les !
+              <FaArrowRight style={{ marginLeft: '8px' }} />
+            </Link>
           </div>
 
           <div className="testimonials-grid">
@@ -359,60 +371,105 @@ const PromoAgent: React.FC = () => {
         </div>
       </section>
 
-      {/* Section Formulaire */}
-      <section id="apply" className="promo-section form-section">
-        <div className="section-container">
-          <div className="form-header">
-            <div className="form-header-content">
-              <h2>
-                <FaRegClock className="header-icon" />
-                <span>Postulez </span>
-                <span className="highlight">Maintenant</span>
-              </h2>
-              <p className="form-subtitle">
-                Rejoignez notre équipe d'élite. Les places sont limitées.
+      <div className="form-header-content">
+        <h2>
+          <FaRegClock className="header-icon" />
+          <span>Postulez </span>
+          <span className="highlight">Maintenant</span>
+        </h2>
+        <p className="form-subtitle">
+          Rejoignez notre équipe d'élite. Les places sont limitées.
+        </p>
+        <div className="application-stats">
+          <div className="stat-item">
+            <FaUserTie />
+            <span>moins places restantes</span>
+          </div>
+          <div className="stat-item">
+            <FaChartLine />
+            <span>Délai moyen: 7jours</span>
+          </div>
+        </div>
+        <div className="form-home-btn">
+          <Link to="/" className="btn-home">
+            <FaHome />
+            <span>Retour à l'accueil</span>
+          </Link>
+        </div>
+      </div>
+      <div className="form-cta">
+        <FaCheckCircle className="cta-icon" />
+        <p>
+          <strong>Garantie de réponse</strong> sous 72h maximum
+        </p>
+      </div>
+
+      {/* Footer avec liens vers numeric-paper.com */}
+      <footer className="numeric-paper-footer">
+        <div className="footer-container">
+          <div className="footer-main">
+            {/* Logo et description */}
+            <div className="footer-brand">
+              <p className="footer-description">
+                Gagnez jusqu'à 20% de commission en devenant ambassadeur <strong translate='no'>Numeric-Paper</strong>. 
+                Transformez votre réseau en revenus récurrents.
               </p>
-              <div className="application-stats">
-                <div className="stat-item">
-                  <FaUserTie />
-                  <span>12 places restantes</span>
-                </div>
-                <div className="stat-item">
-                  <FaChartLine />
-                  <span>Délai moyen: 48h</span>
-                </div>
+              <div className="footer-social">
+                <a href="https://linkedin.com/company/numeric-paper" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
+                <a href="https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
+                <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">WhatsApp</a>
               </div>
             </div>
-            <div className="form-cta">
-              <FaCheckCircle className="cta-icon" />
-              <p>
-                <strong>Garantie de réponse</strong> sous 72h maximum
-              </p>
+
+            {/* Liens rapides */}
+            <div className="footer-links-section">
+              <h4>Liens Rapides</h4>
+              <ul className="footer-links">
+                <li><a href="https://numeric-paper.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
+                <li><a href="https://numeric-paper.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
+                <li><a href="https://numeric-paper.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
+                <li><a href="https://numeric-paper.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
+              </ul>
+            </div>
+
+            {/* Liens légaux */}
+            <div className="footer-links-section">
+              <h4>Légal</h4>
+              <ul className="footer-links">
+                <li><a href="https://numeric-paper.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
+                <li><a href="https://numeric-paper.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
+                <li><a href="https://numeric-paper.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
+                <li><a href="https://numeric-paper.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div className="footer-contact">
+              <h4>Contactez-nous</h4>
+              <div className="footer-contact-item">
+                <FaEnvelope />
+                <a href="mailto:numeric-paper@outlook.com">numeric-paper@outlook.com</a>
+              </div>
+              <div className="footer-contact-item">
+                <FaWhatsapp />
+                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20Numeric-Paper" target="_blank" rel="noopener noreferrer">+250 792 871 952</a>
+              </div>
+              <a href="https://numeric-paper.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
+                <FaGlobe /> Visitez numeric-paper.com
+              </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="promo-footer">
-        <div className="footer-content">
-          <div className="footer-logo">
-            <FaCrown />
-            <span>NumericPaper Promo</span>
+          {/* Copyright */}
+          <div className="footer-bottom">
+            <p>&copy; 2026 <span translate="no">Numeric-Paper</span>. Tous droits réservés.</p>
+            <p className="footer-powered">
+              Propulsé par <a href="https://numeric-paper.com" target="_blank" rel="noopener noreferrer"><span translate="no">Numeric-Paper</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
+            </p>
           </div>
-          <p className="footer-tagline">
-            Votre succès, notre priorité. Rejoignez la révolution de l'événementiel digital.
-          </p>
-          <div className="footer-links">
-            <a href="/terms">Conditions</a>
-            <a href="/privacy">Confidentialité</a>
-            <a href="/contact">Contact Support</a>
-          </div>
-          <p className="footer-copyright">
-            © 2024 NumericPaper. Tous droits réservés.
-          </p>
         </div>
       </footer>
+
     </div>
   );
 };

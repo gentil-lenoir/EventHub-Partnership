@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../Components/Header';
+import CustomHeader from '../Components/CustomHeader';
 import '../Css/PromoAgent.css';
 import { 
   FaPaperPlane, 
@@ -12,8 +12,20 @@ import {
   FaShareAlt,
   FaLightbulb,
   FaShieldAlt,
-  FaCrown
+  FaCrown,
+  FaFacebook,
+  FaTiktok,
+  FaInstagram,
+  FaLinkedin,
+  FaRegClock,
+  FaUserTie,
+  FaChartLine,
+  FaHome,
+  FaGlobe,
+  FaPhone,
+  FaExternalLinkAlt
 } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 interface FormData {
   fullName: string;
@@ -21,7 +33,10 @@ interface FormData {
   whatsapp: string;
   nationality: string;
   city: string;
-  socialMedia: string;
+  facebook: string;
+  tiktok: string;
+  instagram: string;
+  linkedin: string;
   motivation: string;
 }
 
@@ -32,7 +47,10 @@ const PromoAgentApplication: React.FC = () => {
     whatsapp: '',
     nationality: '',
     city: '',
-    socialMedia: '',
+    facebook: '',
+    tiktok: '',
+    instagram: '',
+    linkedin: '',
     motivation: ''
   });
 
@@ -100,11 +118,16 @@ const PromoAgentApplication: React.FC = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/promo-agent/application', {
+      await fetch('http://127.0.0.1:8000/sanctum/csrf-cookie', {  });
+
+      const headers: any = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      const response = await fetch('http://127.0.0.1:8000/admin/promo-agent/application', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: headers,
         body: JSON.stringify(formData),
       });
 
@@ -148,8 +171,7 @@ const PromoAgentApplication: React.FC = () => {
         {formStep === 1 && (
           <div className="form-step">
             <div className="step-header">
-              <FaUser className="step-icon" />
-              <h3>Informations Personnelles</h3>
+              <h3><FaUser/> Informations Personnelles</h3>
               <p>Commencez par nous dire qui vous êtes</p>
             </div>
             
@@ -267,31 +289,91 @@ const PromoAgentApplication: React.FC = () => {
                   className="form-input-promo"
                 />
               </div>
+            </div>
 
-              <div className="form-group-promo">
-                <label htmlFor="socialMedia">
-                  <FaShareAlt className="input-icon" />
-                  Réseaux Sociaux (Optionnel)
-                </label>
-                <input
-                  type="text"
-                  id="socialMedia"
-                  name="socialMedia"
-                  value={formData.socialMedia}
-                  onChange={handleInputChange}
-                  placeholder="Facebook, Instagram, TikTok, LinkedIn"
-                  className="form-input-promo"
-                />
-                <div className="input-hint">
-                  Liens ou noms d'utilisateur - Améliore vos chances d'acceptation
+            {/* Social Media Inputs */}
+            <div className="social-media-section">
+              <div className="step-header">
+                <FaShareAlt className="step-icon" />
+                <h3>Vos Réseaux Sociaux</h3>
+                <p>Partagez vos comptes pour augmenter vos chances</p>
+              </div>
+
+              <div className="social-media-grid">
+                <div className="form-group-promo">
+                  <label htmlFor="facebook">
+                    <FaFacebook className="input-icon" style={{ color: '#1877F2' }} />
+                    Facebook
+                  </label>
+                  <input
+                    type="text"
+                    id="facebook"
+                    name="facebook"
+                    value={formData.facebook}
+                    onChange={handleInputChange}
+                    placeholder="Nom d'utilisateur ou lien"
+                    className="form-input-promo"
+                  />
                 </div>
+
+                <div className="form-group-promo">
+                  <label htmlFor="tiktok">
+                    <FaTiktok className="input-icon" style={{ color: '#000000' }} />
+                    TikTok
+                  </label>
+                  <input
+                    type="text"
+                    id="tiktok"
+                    name="tiktok"
+                    value={formData.tiktok}
+                    onChange={handleInputChange}
+                    placeholder="Nom d'utilisateur ou lien"
+                    className="form-input-promo"
+                  />
+                </div>
+
+                <div className="form-group-promo">
+                  <label htmlFor="instagram">
+                    <FaInstagram className="input-icon" style={{ color: '#E4405F' }} />
+                    Instagram
+                  </label>
+                  <input
+                    type="text"
+                    id="instagram"
+                    name="instagram"
+                    value={formData.instagram}
+                    onChange={handleInputChange}
+                    placeholder="Nom d'utilisateur ou lien"
+                    className="form-input-promo"
+                  />
+                </div>
+
+                <div className="form-group-promo">
+                  <label htmlFor="linkedin">
+                    <FaLinkedin className="input-icon" style={{ color: '#0A66C2' }} />
+                    LinkedIn
+                  </label>
+                  <input
+                    type="text"
+                    id="linkedin"
+                    name="linkedin"
+                    value={formData.linkedin}
+                    onChange={handleInputChange}
+                    placeholder="Profil LinkedIn"
+                    className="form-input-promo"
+                  />
+                </div>
+              </div>
+              
+              <div className="input-hint" style={{ marginTop: '0.5rem' }}>
+                Ces informations sont optionnelles mais améliorent vos chances d'acceptation
               </div>
             </div>
 
             <div className="social-tips">
-              <FaLightbulb className="tips-icon" />
+              
               <div className="tips-content">
-                <h4>Astuce pour augmenter vos chances</h4>
+                <h4><FaLightbulb /> Astuce pour augmenter vos chances</h4>
                 <p>
                   Les agents avec un bon réseau social sont souvent acceptés plus rapidement.
                   Partagez vos comptes les plus actifs.
@@ -323,14 +405,14 @@ const PromoAgentApplication: React.FC = () => {
         {formStep === 3 && (
           <div className="form-step">
             <div className="step-header">
-              <FaLightbulb className="step-icon" />
-              <h3>Votre Motivation</h3>
+              
+              <h3><FaLightbulb className="step-icon" /> Votre Motivation</h3>
               <p>Convainquez-nous de votre potentiel</p>
             </div>
             
             <div className="form-group-promo">
               <label htmlFor="motivation">
-                Pourquoi voulez-vous devenir Agent Numeric-Paper ?
+                Pourquoi voulez-vous devenir Agent <strong translate='no'>Numeric-Paper</strong> ?
               </label>
               <textarea
                 id="motivation"
@@ -338,6 +420,7 @@ const PromoAgentApplication: React.FC = () => {
                 value={formData.motivation}
                 onChange={handleInputChange}
                 required
+                minLength={30}
                 placeholder={`Partagez avec nous :
 • Votre expérience dans la vente ou le marketing
 • Votre réseau et comment vous comptez l'utiliser
@@ -348,12 +431,8 @@ const PromoAgentApplication: React.FC = () => {
                 className="form-textarea-promo"
               />
               <div className="textarea-hint">
-                Minimum 200 caractères. Soyez précis et convaincant !
+                Minimum 30 caractères. Soyez précis et convaincant !
               </div>
-            </div>
-
-            <div className="form-counter">
-              Caractères: {formData.motivation.length} / 500
             </div>
 
             {status === 'error' && (
@@ -390,13 +469,6 @@ const PromoAgentApplication: React.FC = () => {
               </button>
             </div>
 
-            <div className="form-disclaimer">
-              <FaShieldAlt className="disclaimer-icon" />
-              <p>
-                Vos informations sont sécurisées et ne seront jamais partagées avec des tiers.
-                En soumettant ce formulaire, vous acceptez nos conditions d'utilisation.
-              </p>
-            </div>
           </div>
         )}
       </form>
@@ -406,10 +478,7 @@ const PromoAgentApplication: React.FC = () => {
   if (status === 'success') {
     return (
       <div className="promo-agent-container">
-        <Header 
-          selectedTheme={selectedTheme}
-          navItems={[{ id: 'home', label: 'Accueil' }]}
-        />
+        <CustomHeader selectedTheme={selectedTheme} />
         <div className="section-container" style={{ paddingTop: '8rem', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="form-success-container" style={{ width: '100%', maxWidth: '800px' }}>
             <div className="success-animation">
@@ -456,7 +525,10 @@ const PromoAgentApplication: React.FC = () => {
                       whatsapp: '',
                       nationality: '',
                       city: '',
-                      socialMedia: '',
+                      facebook: '',
+                      tiktok: '',
+                      instagram: '',
+                      linkedin: '',
                       motivation: ''
                     });
                   }}
@@ -474,10 +546,10 @@ const PromoAgentApplication: React.FC = () => {
           <div className="footer-content">
             <div className="footer-logo">
               <FaCrown />
-              <span>NumericPaper Promo</span>
+              <span translate='no'>Numeric-Paper Promo</span>
             </div>
             <p className="footer-copyright">
-              © 2024 NumericPaper. Tous droits réservés.
+              © 2026 <strong>Numeric-Paper</strong>. Tous droits réservés.
             </p>
           </div>
         </footer>
@@ -487,10 +559,7 @@ const PromoAgentApplication: React.FC = () => {
 
   return (
     <div className="promo-agent-container">
-      <Header 
-        selectedTheme={selectedTheme}
-        navItems={[{ id: 'home', label: 'Accueil' }]}
-      />
+      <CustomHeader selectedTheme={selectedTheme} />
 
       {/* Language and Theme Selector */}
       <div className="language-selector-container">
@@ -510,38 +579,111 @@ const PromoAgentApplication: React.FC = () => {
         </div>
       </div>
 
-      <div className="section-container" style={{ paddingTop: '8rem', paddingBottom: '4rem', minHeight: 'calc(100vh - 300px)' }}>
-        <div className="section-header-promo">
+      <div className="section-container" style={{ paddingTop: '1rem', paddingBottom: '1rem'}}>
+        {/* Form Header Content */}
+        <div className="form-header-content">
           <h2>
-            <FaUser className="header-icon" />
-            <span>Candidature </span>
-            <span className="highlight">Agent</span>
+            <FaRegClock className="header-icon" />
+            <span>Postulez </span>
+            <span className="highlight">Maintenant</span>
           </h2>
-          <p className="section-subtitle-promo">
-            Rejoignez l'équipe Numeric-Paper et commencez à gagner des revenus
+          <p className="form-subtitle">
+            Rejoignez notre équipe d'élite. Les places sont limitées.
           </p>
+          <div className="application-stats">
+            <div className="stat-item">
+              <FaUserTie />
+              <span>moins places restantes</span>
+            </div>
+            <div className="stat-item">
+              <FaChartLine />
+              <span>Délai moyen: 7jours</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Form CTA */}
+        <div className="form-cta">
+          <FaCheckCircle className="cta-icon" />
+          <p>
+            <strong>Garantie de réponse</strong> sous 72h maximum
+          </p>
+        </div>
+        
+        {/* Home Button */}
+        <div className="form-home-btn">
+          <Link to="/" className="btn-home">
+            <FaHome />
+            <span>Retour à l'accueil</span>
+          </Link>
         </div>
 
         {formContent}
       </div>
 
-      <footer className="promo-footer">
-        <div className="footer-content">
-          <div className="footer-logo">
-            <FaCrown />
-            <span>NumericPaper Promo</span>
+      {/* Footer avec liens vers numeric-paper.com */}
+      <footer className="numeric-paper-footer">
+        <div className="footer-container">
+          <div className="footer-main">
+            {/* Logo et description */}
+            <div className="footer-brand">
+              <p className="footer-description">
+                Rejoignez notre équipe d'agents promo et gagnez des commissions en promouvant 
+                la meilleure plateforme d'invitations virtuelles sécurisées.
+              </p>
+              <div className="footer-social">
+                <a href="https://linkedin.com/company/numeric-paper" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
+                <a href="https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
+                <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">WhatsApp</a>
+              </div>
+            </div>
+
+            {/* Liens rapides */}
+            <div className="footer-links-section">
+              <h4>Liens Rapides</h4>
+              <ul className="footer-links">
+                <li><a href="https://numeric-paper.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
+                <li><a href="https://numeric-paper.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
+                <li><a href="https://numeric-paper.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
+                <li><a href="https://numeric-paper.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
+              </ul>
+            </div>
+
+            {/* Liens légaux */}
+            <div className="footer-links-section">
+              <h4>Légal</h4>
+              <ul className="footer-links">
+                <li><a href="https://numeric-paper.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
+                <li><a href="https://numeric-paper.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
+                <li><a href="https://numeric-paper.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
+                <li><a href="https://numeric-paper.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div className="footer-contact">
+              <h4>Contactez-nous</h4>
+              <div className="footer-contact-item">
+                <FaEnvelope />
+                <a href="mailto:numeric-paper@outlook.com">numeric-paper@outlook.com</a>
+              </div>
+              <div className="footer-contact-item">
+                <FaWhatsapp />
+                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20Numeric-Paper" target="_blank" rel="noopener noreferrer">+250 792 871 952</a>
+              </div>
+              <a href="https://numeric-paper.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
+                <FaGlobe /> Visitez numeric-paper.com
+              </a>
+            </div>
           </div>
-          <p className="footer-tagline">
-            Votre succès, notre priorité. Rejoignez la révolution de l'événementiel digital.
-          </p>
-          <div className="footer-links">
-            <a href="/terms">Conditions</a>
-            <a href="/privacy">Confidentialité</a>
-            <a href="/contact">Contact Support</a>
+
+          {/* Copyright */}
+          <div className="footer-bottom">
+            <p>&copy; 2026 <span translate="no">Numeric-Paper</span>. Tous droits réservés.</p>
+            <p className="footer-powered">
+              Propulsé par <a href="https://numeric-paper.com" target="_blank" rel="noopener noreferrer"><span translate="no">Numeric-Paper</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
+            </p>
           </div>
-          <p className="footer-copyright">
-            © 2024 NumericPaper. Tous droits réservés.
-          </p>
         </div>
       </footer>
     </div>

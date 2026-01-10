@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "name": "Numeric-Paper",
   "operatingSystem": "Web",
-  "applicationCategory": "EventManagementApplication",
+  "applicationCategory": "Event Management Plateform",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -16,6 +16,6 @@
   },
   "publisher": {
       "@type": "Organization",
-      "name": "Khaleen"
+      "name": "Numeric-Paper"
   }
 }
