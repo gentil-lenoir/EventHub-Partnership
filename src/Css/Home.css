@@ -459,6 +459,7 @@ body.light-theme {
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .feature-learn-more {
@@ -1772,6 +1773,13 @@ body {
   width: fit-content;
 }
 
+.download-link{
+  color: var(--text-link-hover);
+  padding-top: 10px;
+}
+.download-link:hover{
+  color: var(--text-link);
+}
 .numeric-paper-footer .footer-site-link:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);

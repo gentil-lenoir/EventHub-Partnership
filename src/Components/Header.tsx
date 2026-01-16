@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaRocket } from 'react-icons/fa';
+import { Navigate } from 'react-router';
 
 // Type pour les props optionnelles
 interface HeaderProps {
@@ -9,6 +10,7 @@ interface HeaderProps {
   selectedTheme?: string;
   navItems?: { id: string; label: string }[];
 }
+
 
 // Fonction pour le scroll
 const defaultScrollToSection = (sectionId: string) => {
@@ -29,6 +31,7 @@ const defaultNavItems = [
   { id: 'demo', label: 'Demo' },
   { id: 'roadmap', label: 'Roadmap' },
   { id: 'investment', label: 'Investment' },
+  { id: 'contact', label: 'Contacts' }
 ];
 
 const Header: React.FC<HeaderProps> = ({ 
@@ -74,12 +77,13 @@ const Header: React.FC<HeaderProps> = ({
         </ul>
         
         <div className="nav-cta">
-          <button 
+          <a 
             className="btn-primary"
-            onClick={() => scrollToSection('contact')}
+            href='/promo-agent/application'
+            style={{textDecoration:'none'}}
           >
-            Devenir Partenaire
-          </button>
+            Postulez / Appliquez
+          </a>
         </div>
       </div>
     </nav>

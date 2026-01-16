@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import '../Css/Home.css'
 import Header from '../Components/Header';
 import { 
@@ -7,8 +7,12 @@ import {
   FaRocket, FaBullseye, FaLightbulb, FaChartLine, FaCheck, FaSync, 
   FaVideo, FaHandshake, FaBuilding, FaBriefcase, FaPhone, FaEnvelope, 
   FaFileAlt, FaWhatsapp, FaCheckCircle, FaCircle, FaSun, FaMoon,
-  FaUserTie, FaPercent, FaCrown, FaExternalLinkAlt
+  FaUserTie, FaPercent, FaCrown, FaExternalLinkAlt,
+  FaLinkedin,
+  FaFacebook,
+  FaDownload
 } from 'react-icons/fa';
+import { link } from 'node:fs';
 
 // Types et interfaces
 interface ContactInfo {
@@ -441,12 +445,22 @@ ${formData.message}
           
           <h1 className="hero-title">
             <span style={{color:'green'}}><span translate="no">Numeric-Paper</span></span><br />
-            Nous cherchons un Sponsor ou un Acheteur
+            Nous cherchons un Partenaire Stratégique ou Investisseur !
           </h1>
           
           <p className="hero-subtitle">
-            {projectData.tagline} - Créez, gérez et monétisez vos événements avec notre plateforme tout-en-un
+            {projectData.tagline} - 
+            Si vous êtes intéressé par un partenariat ou un investissement, contactez-nous dès aujourd'hui ! <br />
+            Nous serons ravis de discuter des opportunités avec vous.
           </p>
+
+          <div style={{display:'flex', justifyContent:'space-around'}}>
+            <div></div>
+            <a href='https://numeric-paper.com/princing' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Principes <span translate='no'>Numeric-Paper</span></a>
+            <button onClick={() => scrollToSection('contact')} className='feature-tag' style={{fontWeight:'bold'}}>Contacts</button>
+            <a href='https://numeric-paper.com' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Visiter le site</a>
+            <div></div>
+          </div>
           
           <div className="hero-stats" style={{ gap: '15px', marginTop: '30px' }}>
             <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
@@ -656,15 +670,12 @@ ${formData.message}
                   <li style={{textIndent:'15px'}}>
                     Support multilingue avec une équipe locale dans chaque marché
                   </li>
-                  <li style={{textIndent:'15px'}}>
-                    Intégrations API permettant une connectivité avec d'autres systèmes
-                  </li>
             </ol>
             
             <div className="tech-stack">
               <h4>Stack Technologique</h4>
               <div className="tech-list">
-                {['Laravel', 'TypeScript', 'Node.js', 'MySQL', 'Electron.js', 'Capacitor.js'].map(tech => (
+                {['Laravel', 'TypeScript', 'Node.js', 'MySQL', 'Electron.js', 'React.js', 'React Native'].map(tech => (
                   <span key={tech} className="tech-tag">{tech}</span>
                 ))}
               </div>
@@ -689,7 +700,7 @@ ${formData.message}
                 <div className="video-label"><FaVideo style={{ display: 'inline', marginRight: '5px' }} /> Vidéo pour de Démonstration </div>
                 <div className="video-container">
                   <video src="/vid/Numeric-Paper.mp4" controls preload='metadata' className="video"></video>
-                  <a href="/vid/Numeric-Paper.mp4" download>Télécharger la vidéo</a>
+                  <a className='download-link' href="/vid/Numeric-Paper.mp4" download><FaDownload/> Télécharger la vidéo</a>
                 </div>
               </div>
               
@@ -697,7 +708,7 @@ ${formData.message}
                 <div className="video-label"><FaVideo style={{ display: 'inline', marginRight: '5px' }} /> Vidéo de <span>Gentil Le NoiR</span></div>
                 <div className="video-container">
                   <video src="/vid/Video-NumericPaper-Pr-COMPRESSED.mp4" controls preload="metadata" className="video"></video>
-                  <a href="/vid/Video-NumericPaper-Pr-COMPRESSED.mp4" download>Télécharger la vidéo</a>
+                  <a className='download-link' href="/vid/Video-NumericPaper-Pr-COMPRESSED.mp4" download><FaDownload /> Télécharger la vidéo</a>
                 </div>
               </div>
             </div>
@@ -705,7 +716,7 @@ ${formData.message}
             <div className="demo-images">
               <h3>Galerie d'Images</h3><br />
               <div className="image-grid">
-                {['/img/Image-logo-numericpaper.png', '/img/screenshoots/001.png', '/img/screenshoots/003.png', '/img/affiche1.png', '/img/affiche2.png', '/img/affiche3.png'].map(img => (
+                {['/img/Image-logo-numericpaper.png', '/img/screenshoots/001.png', '/img/screenshoots/003.png', '/img/affiche2.png', '/img/affiche3.png'].map(img => (
                   // <div key={img} className="image-placeholder">
                     <div key={img}>
                       <img src={img} className='img-demo'/>
@@ -844,21 +855,21 @@ ${formData.message}
                 <div className="stream-card">
                   <h5><FaMoneyBillWave style={{ display: 'inline', marginRight: '5px' }} /> Invitations Premium</h5>
                   <p>Tarification par volume avec dégressivité</p>
-                  <span className="stream-percentage">70% des revenus</span>
+                  <span className="stream-percentage">80% des revenus</span>
                 </div>
                 <div className="stream-card">
-                  <h5><FaPalette style={{ display: 'inline', marginRight: '5px' }} /> Templates Premium</h5>
-                  <p>Designs exclusifs pour événements spéciaux</p>
-                  <span className="stream-percentage">15% des revenus</span>
-                </div>
-                <div className="stream-card">
-                  <h5><FaChartBar style={{ display: 'inline', marginRight: '5px' }} /> Fonctionnalités Avancées</h5>
-                  <p>Analytics, intégrations API, support prioritaire</p>
+                  <h5><FaPalette style={{ display: 'inline', marginRight: '5px' }} /> Abonements Premium</h5>
+                  <p>Abonnements Premium et Prioritaire</p>
                   <span className="stream-percentage">10% des revenus</span>
                 </div>
                 <div className="stream-card">
-                  <h5><FaHandshake style={{ display: 'inline', marginRight: '5px' }} /> Partenariats</h5>
-                  <p>Commissions sur services partenaires</p>
+                  <h5><FaChartBar style={{ display: 'inline', marginRight: '5px' }} /> Fonctionnalités Avancées</h5>
+                  <p>Integrations et Abonnement <strong translate='no'>Best-Customers</strong></p>
+                  <span className="stream-percentage">+5% sur revenus</span>
+                </div>
+                <div className="stream-card">
+                  <h5><FaHandshake style={{ display: 'inline', marginRight: '5px' }} /> Promo</h5>
+                  <p>Promotion des événements des <strong translate='no'>Best-Customers</strong></p>
                   <span className="stream-percentage">5% des revenus</span>
                 </div>
               </div>
@@ -914,14 +925,22 @@ ${formData.message}
               <div className="timeline-date">Dec 2025</div>
               <div className="timeline-content">
                 <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Integration de Méthodes de Paiement</h4>
-                <p>Ajout des méthodes de paiement Iternationale (PayPal)</p>
+                <p>Ajout des méthodes de paiement Iternationale (PayPal) et flutterwave pour l'Afrique</p>
+              </div>
+            </div>
+
+            <div className="timeline-item current">
+              <div className="timeline-date">Jan 2026</div>
+              <div className="timeline-content">
+                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Lancement</h4>
+                <p>Lancement du Projet complet</p>
               </div>
             </div>
                                     
             <div className="timeline-item future">
               <div className="timeline-date">2026</div>
               <div className="timeline-content">
-                <h4><FaCircle style={{ display: 'inline', marginRight: '5px', color: 'orange' }} /> Recherche des Sponsors ou des Clients</h4>
+                <h4><FaCircle style={{ display: 'inline', marginRight: '5px', color: 'orange' }} /> Recherche des Partenaires</h4>
                 <p>En cours...</p>
               </div>
             </div>
@@ -987,12 +1006,12 @@ ${formData.message}
             <div className="option-card">
               <div className="option-header">
                 <span className="option-icon"><FaHandshake /></span>
-                <h3>Sponsorisation Stratégique</h3>
+                <h3>Partenariât Stratégique</h3>
               </div>
               <div className="option-content">
                 <ul className="option-benefits">
                   <li>Investissement: A Vérifier</li>
-                  <li>Équité: 50|50</li>
+                  <li>Équité: (À définir après discussion)</li>
                   <li>Rôle actif dans la direction</li>
                   <li>Partage des revenus</li>
                   <li>Accès à la technologie propriétaire</li>
@@ -1012,14 +1031,14 @@ ${formData.message}
             <div className="option-card">
               <div className="option-header">
                 <span className="option-icon"><FaMoneyBillWave /></span>
-                <h3>Achat</h3>
+                <h3>Partenariât Court-terme</h3>
               </div>
               <div className="option-content">
                 <ul className="option-benefits">
+                  <li>Durée : entre 6mois et 1an</li>
                   <li>Investissement: A Discuter</li>
-                  <li>Équité: 99%</li>
-                  <li>Transfert complet de la technologie</li>
-                  <li>Droit de veto sur les décisions clés</li>
+                  <li>Équité: inférieure à 30% </li>
+                  <li>Pas de Droit de veto</li>
                   <li>Maximisation des Intérêts</li>
                 </ul>
                 <div className="option-footer">
@@ -1041,9 +1060,9 @@ ${formData.message}
               </div>
               <div className="option-content">
                 <ul className="option-benefits">
-                  <li>Offre: $5,000+</li>
+                  <li>Offre: $2,000+</li>
                   <li>Compromis avant Lancement</li>
-                  <li>Marketing Direct sur Site et sur NewsLetter</li>
+                  <li>Marketing Direct: Site et NewsLetter</li>
                   <li>Equité à vérifier</li>
                   <li>Accès aux Fonctions Financiers</li>
                 </ul>
@@ -1061,7 +1080,7 @@ ${formData.message}
           </div>
           
           <div className="investment-details">
-            <h3>Détails de l'Investissement</h3>
+            <h3>Engagement des agents de Promotion Disponible</h3>
             
             <div className="promo-agent-cta">
               <div className="cta-content">
@@ -1078,13 +1097,13 @@ ${formData.message}
             </div>
             
             <div className="details-grid">
-              <div className="detail-item">
+              {/* <div className="detail-item">
                 <h4><FaBriefcase style={{ display: 'inline', marginRight: '5px', color:'khaki' }} /> Structure</h4>
                 <p>Société à responsabilité limitée, prête pour l'investissement</p>
-              </div>
+              </div> */}
               <div className="detail-item">
                 <h4><FaChartBar style={{ display: 'inline', marginRight: '5px', color:'green' }} /> Évaluation</h4>
-                <p>Évaluation pré-money: $1,000 - $1,000,000 selon l'option</p>
+                <p>Évaluation pré-money: $1,500 - $1,000,000 selon l'option</p>
               </div>
               <div className="detail-item">
                 <h4><FaBullseye style={{ display: 'inline', marginRight: '5px', color:'red' }} /> Utilisation des Fonds</h4>
@@ -1104,7 +1123,7 @@ ${formData.message}
       <section id="contact" className="section contact-section" ref={contactRef}>
         <div className="section-container">
           <div className="section-header">
-            <h2>Contactez-<span className="highlight">Moi</span></h2>
+            <h2>Contactez-<span className="highlight">Nous</span></h2>
             <p className="section-subtitle">
               Discutons de partenariat, d'investissement ou d'acquisition
             </p>
@@ -1198,12 +1217,12 @@ ${formData.message}
               </div>
               
               <div className="social-media-placeholder">
-                <h4>Réseaux Sociaux</h4>
+                <h4><FaGlobe style={{fontSize:'1rem'}}/> Réseaux Sociaux</h4>
                 <div className="social-icons-placeholder">
                   {/* Espaces pour les réseaux sociaux */}
-                  <a href='https://linkedin.com/company/numeric-paper' target='_blank' className="contact-link">LinkedIn</a>
-                  <a href='https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr' target='_blank' className="contact-link">FaceBook</a>
-                  <a href='https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D' target='_blank' className="contact-link">WhatsApp</a>
+                  <a href='https://linkedin.com/company/numeric-paper' target='_blank' className="contact-link" style={{textIndent:'15px'}}><FaLinkedin /> LinkedIn</a>
+                  <a href='https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr' target='_blank' style={{textIndent:'15px'}} className="contact-link"><FaFacebook /> FaceBook</a>
+                  <a href='https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D' target='_blank' style={{textIndent:'15px'}} className="contact-link"><FaWhatsapp /> WhatsApp</a>
                 </div>
               </div>
             </div>

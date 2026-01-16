@@ -168,7 +168,7 @@ const PromoAgent: React.FC = () => {
               Des avantages exclusifs pour nos ambassadeurs
             </p>
             <Link to="/promo-agent/application" className="btn-apply-now">
-              Appliquez Maintenant
+              Appliquez/Postulez Maintenant
               <FaArrowRight style={{ marginLeft: '8px' }} />
             </Link>
           </div>
