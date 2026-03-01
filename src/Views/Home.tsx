@@ -462,7 +462,7 @@ ${formData.message}
             <div></div>
           </div>
           
-          <div className="hero-stats" style={{ gap: '15px', marginTop: '30px' }}>
+          {/* <div className="hero-stats" style={{ gap: '15px', marginTop: '30px' }}>
             <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
               <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>100%</div>
               <div className="stat-label" style={{ fontSize: '0.85rem' }}>Sécurisé</div>
@@ -479,7 +479,7 @@ ${formData.message}
               <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>24/7</div>
               <div className="stat-label" style={{ fontSize: '0.85rem' }}>Support</div>
             </div>
-          </div>
+          </div> */}
           
           <div className="hero-actions">
             <button 
