@@ -82,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({
             href='/promo-agent/application'
             style={{textDecoration:'none'}}
           >
-            Postulez / Appliquez
+            Appliquez
           </a>
         </div>
       </div>
