@@ -1187,6 +1187,10 @@ body.dark-theme {
   border-radius: 10px;
 }
 
+.custom-logo-icon img {
+  margin-top: 0.2rem;
+}
+
 .custom-logo-text {
   display: flex;
   flex-direction: column;
