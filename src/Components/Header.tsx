@@ -45,17 +45,17 @@ const Header: React.FC<HeaderProps> = ({
     <nav className="main-nav">
       <div className="nav-container">
         <div className="logo">
-          <a href="https://eventhub.com" target="_blank" rel="noopener noreferrer" className="logo-link">
+          <a href="https://azenium.com" target="_blank" rel="noopener noreferrer" className="logo-link">
             <span className="logo-icon">
               <img 
-                src={selectedTheme === 'dark' ? "/img/EventHub-white.png" : "/favicon.ico"} 
+                src={selectedTheme === 'dark' ? "/img/logo_transparent.png" : "/img/logo_transparent.png"} 
                 alt="" 
                 width="40px" 
               />
             </span>
             <span className="logo-text">
-              <strong><span translate="no">EventHub</span></strong>
-              <small>À la recherche de <span style={{color:'white', fontWeight:'bold'}}>Partenaire</span></small>
+              <img src="/img/azeni_um_logo_transparent.png" height='25px' width='120px' alt="Logo de Azenium" title='logo de Azenium' />
+              <small>Recherche de <span style={{color:'white', fontWeight:'bold'}}>Partenaire</span></small>
             </span>
           </a>
         </div>
@@ -76,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({
           ))}
         </ul>
         
-        <div className="nav-cta">
+        {/* <div className="nav-cta">
           <a 
             className="btn-primary"
             href='/promo-agent/application'
@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({
           >
             Appliquez
           </a>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

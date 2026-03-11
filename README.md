@@ -1,8 +1,8 @@
-# EventHub 🚀
+# Azenium 🚀
 
 ## La révolution des invitations virtuelles sécurisées
 
-EventHub est une plateforme innovative de création d'événements, d'invitations virtuelles, de cartes digitales et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.
+Azenium est une plateforme innovative de création d'événements, d'invitations virtuelles, de cartes digitales et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.
 
 ---
 
@@ -22,7 +22,7 @@ EventHub est une plateforme innovative de création d'événements, d'invitation
 
 ## 🎯 À propos
 
-EventHub révolutionne la gestion d'événements en proposant des invitations digitales **impossibles à copier ou falsifier**. Notre technologie propriétaire génère des QR Codes uniques et temporaires, offrant un niveau de sécurité inégalé pour tout type d'événement.
+Azenium révolutionne la gestion d'événements en proposant des invitations digitales **impossibles à copier ou falsifier**. Notre technologie propriétaire génère des QR Codes uniques et temporaires, offrant un niveau de sécurité inégalé pour tout type d'événement.
 
 ### 🎪 Cibles du marché
 
@@ -122,8 +122,8 @@ EventHub révolutionne la gestion d'événements en proposant des invitations di
 
 ```bash
 # Cloner le repository
-git clone https://github.com/gentil-lenoir/eventhub.git
-cd eventhub
+git clone https://github.com/gentil-lenoir/azenium.git
+cd azenium
 
 # Installer les dépendances frontend
 npm install
@@ -291,16 +291,16 @@ Ce projet est sous licence propriétaire. Voir le fichier [LICENCE](LICENCE) pou
 
 ## 🙏 Remerciements
 
-Merci à tous les testeurs beta qui ont contribué au développement de EventHub avec leurs retours précieux.
+Merci à tous les testeurs beta qui ont contribué au développement de Azenium avec leurs retours précieux.
 
 ---
 
 ## 📞 Contact pour Partenariat
 
-**Vous êtes intéressé par EventHub ?**
+**Vous êtes intéressé par Azenium ?**
 
 Contactez-nous via :
-- 📱 **WhatsApp**: [+243978089552](https://wa.me/243978089552?text=Bonjour%20Je%20viens%20Sponsoriser%20ou%20Acheter%20EventHub)
+- 📱 **WhatsApp**: [+243978089552](https://wa.me/243978089552?text=Bonjour%20Je%20viens%20Sponsoriser%20ou%20Acheter%20Azenium)
 - ✉️ **Email**: gentillenoir075@gmail.com
 
 *Nous respondons à tous les messages dans les 24 heures.*
@@ -309,7 +309,7 @@ Contactez-nous via :
 
 <div align="center">
 
-**🚀 EventHub - La sécurité des événements à l'ère numérique**
+**🚀 Azenium - La sécurité des événements à l'ère numérique**
 
 *Développé avec ❤️ par Gentil Le Noir*
 

@@ -15,7 +15,7 @@ const PromoAgent: React.FC = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [selectedTheme, setSelectedTheme] = useState<string>(() => {
-    const savedTheme = localStorage.getItem('eventhub-theme');
+    const savedTheme = localStorage.getItem('azenium-theme');
     return savedTheme || 'dark';
   });
 
@@ -53,7 +53,7 @@ const PromoAgent: React.FC = () => {
 
   // Theme change effect
   useEffect(() => {
-    localStorage.setItem('eventhub-theme', selectedTheme);
+    localStorage.setItem('azenium-theme', selectedTheme);
     document.body.className = selectedTheme === 'light' ? 'light-theme' : 'dark-theme';
   }, [selectedTheme]);
 
@@ -120,7 +120,7 @@ const PromoAgent: React.FC = () => {
           <h1 style={{fontSize:'4rem'}}>
             <span className="gradient-text">Devenez Ambassadeur</span>
             <br />
-            <span className="highlight-glow" translate='no'>EventHub</span>
+            <span className="highlight-glow" translate='no'>Azenium</span>
           </h1>
           
           <p className="promo-hero-subtitle">
@@ -404,19 +404,19 @@ const PromoAgent: React.FC = () => {
         </p>
       </div>
 
-      {/* Footer avec liens vers eventhub.com */}
-      <footer className="eventhub-footer">
+      {/* Footer avec liens vers azenium.com */}
+      <footer className="azenium-footer">
         <div className="footer-container">
           <div className="footer-main">
             {/* Logo et description */}
             <div className="footer-brand">
               <p className="footer-description">
-                Gagnez jusqu'à 20% de commission en devenant ambassadeur <strong translate='no'>EventHub</strong>. 
+                Gagnez jusqu'à 20% de commission en devenant ambassadeur <strong translate='no'>Azenium</strong>. 
                 Transformez votre réseau en revenus récurrents.
               </p>
               <div className="footer-social">
-                <a href="https://linkedin.com/company/eventhub" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
-                <a href="https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
+                <a href="https://linkedin.com/company/azenium" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
+                <a href="https://www.facebook.com/azenium.platform" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
                 <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">WhatsApp</a>
               </div>
             </div>
@@ -425,10 +425,10 @@ const PromoAgent: React.FC = () => {
             <div className="footer-links-section">
               <h4>Liens Rapides</h4>
               <ul className="footer-links">
-                <li><a href="https://eventhub.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
-                <li><a href="https://eventhub.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
-                <li><a href="https://eventhub.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
-                <li><a href="https://eventhub.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
+                <li><a href="https://azenium.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
+                <li><a href="https://azenium.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
+                <li><a href="https://azenium.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
+                <li><a href="https://azenium.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
               </ul>
             </div>
 
@@ -436,10 +436,10 @@ const PromoAgent: React.FC = () => {
             <div className="footer-links-section">
               <h4>Légal</h4>
               <ul className="footer-links">
-                <li><a href="https://eventhub.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
-                <li><a href="https://eventhub.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
-                <li><a href="https://eventhub.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
-                <li><a href="https://eventhub.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
+                <li><a href="https://azenium.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
+                <li><a href="https://azenium.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
+                <li><a href="https://azenium.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
+                <li><a href="https://azenium.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
               </ul>
             </div>
 
@@ -448,23 +448,23 @@ const PromoAgent: React.FC = () => {
               <h4>Contactez-nous</h4>
               <div className="footer-contact-item">
                 <FaEnvelope />
-                <a href="mailto:info@eventhub.com">info@eventhub.com</a>
+                <a href="mailto:azenium@outlook.com">azenium@outlook.com</a>
               </div>
               <div className="footer-contact-item">
                 <FaWhatsapp />
-                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20EventHub" target="_blank" rel="noopener noreferrer">+243 978 089 552</a>
+                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20Azenium" target="_blank" rel="noopener noreferrer">+243 978 089 552</a>
               </div>
-              <a href="https://eventhub.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
-                <FaGlobe /> Visitez eventhub.com
+              <a href="https://azenium.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
+                <FaGlobe /> Visitez azenium.com
               </a>
             </div>
           </div>
 
           {/* Copyright */}
           <div className="footer-bottom">
-            <p>&copy; 2026 <span translate="no">EventHub</span>. Tous droits réservés.</p>
+            <p>&copy; 2026 <span translate="no">Azenium</span>. Tous droits réservés.</p>
             <p className="footer-powered">
-              Propulsé par <a href="https://eventhub.com" target="_blank" rel="noopener noreferrer"><span translate="no">EventHub</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
+              Propulsé par <a href="https://azenium.com" target="_blank" rel="noopener noreferrer"><span translate="no">Azenium</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
             </p>
           </div>
         </div>

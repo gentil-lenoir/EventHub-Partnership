@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "EventHub",
+  "name": "Azenium",
   "operatingSystem": "Web",
   "applicationCategory": "Event Management Plateform",
   "offers": {
@@ -16,6 +16,6 @@
   },
   "publisher": {
       "@type": "Organization",
-      "name": "EventHub"
+      "name": "Azenium"
   }
 }

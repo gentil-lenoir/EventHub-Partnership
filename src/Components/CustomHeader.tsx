@@ -20,17 +20,17 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ selectedTheme = 'dark' }) =
       <div className="custom-header-container">
         {/* Logo */}
         <div className="custom-logo">
-          <a href="https://eventhub.com" target="_blank" rel="noopener noreferrer" className="custom-logo-link">
+          <a href="https://azenium.com" target="_blank" rel="noopener noreferrer" className="custom-logo-link">
             <span className="custom-logo-icon">
               <img 
-                src={selectedTheme === 'dark' ? "/img/EventHub-white.png" : "/favicon.ico"} 
-                alt="EventHub" 
+                src={selectedTheme === 'dark' ? "/img/favicon.png" : "/image/favicon.png"} 
+                alt="Azenium" 
                 width="40px" 
               />
             </span>
             <div className="custom-logo-text">
-              <strong><span translate="no">EventHub</span></strong>
-              <small>Promo Agent</small>
+              <img src="/img/azeni_um_logo_transparent.png" height='25px' width='120px' alt="Logo de Azenium" title='logo de Azenium' />
+              <small>Recherche de <span style={{color:'white', fontWeight:'bold'}}>Partenaire</span></small>
             </div>
           </a>
         </div>
@@ -50,14 +50,14 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ selectedTheme = 'dark' }) =
         </ul>
         
         {/* CTA Button */}
-        <div className="custom-nav-cta">
+        {/* <div className="custom-nav-cta">
           <Link 
             to="/promo-agent/application"
             className="custom-btn-primary"
           >
-            Postuler Maintenant
+            Postuler
           </Link>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

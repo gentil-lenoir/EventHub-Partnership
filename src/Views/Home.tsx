@@ -54,8 +54,8 @@ interface FAQItem {
 
 // Données du projet
 const projectData = {
-  name: "EventHub",
-  company: "EventHub",
+  name: "Azenium",
+  company: "Azenium",
   tagline: "La révolution des invitations virtuelles sécurisées",
   description: "Plateforme de création d'événements, d'invitations virtuelles, de cartes digitales et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.",
   fullName: "GENTIL LE NOIR MALIYAMUNGU BALEGAMIRE",
@@ -65,7 +65,7 @@ const projectData = {
 const contactInfo: ContactInfo = {
   whatsapp: ["+243978089552"],
   phoneNumbers: ["+250729606087","+243978089552"],
-  emails: ["info@eventhub.com", "gentillenoir075@outlook.com"],
+  emails: ["azenium@outlook.com", "gentillenoir075@outlook.com"],
   portfolioUrl: "https://gentil-lenoir.vercel.app/portfolio",
 };
 
@@ -186,7 +186,7 @@ const testimonials: Testimonial[] = [
     id: 1,
     name: "Marie Dubois",
     role: "Organisatrice de mariage",
-    content: "EventHub a révolutionné ma façon d'organiser des événements. La sécurité des invitations est impeccable et mes clients adorent l'aspect moderne.",
+    content: "Azenium a révolutionné ma façon d'organiser des événements. La sécurité des invitations est impeccable et mes clients adorent l'aspect moderne.",
     rating: 5
   },
   {
@@ -251,7 +251,7 @@ const Home: React.FC = () => {
   
   // Theme state - default to dark theme
   const [selectedTheme, setSelectedTheme] = useState<string>(() => {
-    const savedTheme = localStorage.getItem('eventhub-theme');
+    const savedTheme = localStorage.getItem('azenium-theme');
     return savedTheme || 'dark';
   });
   
@@ -282,7 +282,7 @@ const Home: React.FC = () => {
 
   // Theme change effect - apply theme class and save to localStorage
   useEffect(() => {
-    localStorage.setItem('eventhub-theme', selectedTheme);
+    localStorage.setItem('azenium-theme', selectedTheme);
     document.body.className = selectedTheme === 'light' ? 'light-theme' : 'dark-theme';
     console.log('Theme applied:', selectedTheme);
   }, [selectedTheme]);
@@ -316,7 +316,7 @@ const Home: React.FC = () => {
     e.preventDefault();
     
     // Créer le message pour WhatsApp
-    const message = `🌟 NOUVELLE DEMANDE DE PARTENARIAT EVENTHUB 🌟
+    const message = `🌟 NOUVELLE DEMANDE DE PARTENARIAT AZENIUM 🌟
 
 👤 Nom: ${formData.name}
 📧 Email: ${formData.email}
@@ -401,7 +401,7 @@ ${formData.message}
   const extendedContent = generateExtendedContent();
 
   return (
-    <div className="eventhub-container">
+    <div className="azenium-container">
       {/* Navigation */}
       <Header 
         activeSection={activeSection}
@@ -444,7 +444,7 @@ ${formData.message}
           </div>
           
           <h1 className="hero-title">
-            <span style={{color:'green'}}><span translate="no">EventHub</span></span><br />
+            <img src="/img/azeni_um_logo_transparent.png" alt="logo de Azenium" title="logo de azenium" height="70px" /> <br />
             Nous cherchons un Partenaire Stratégique ou Investisseur !
           </h1>
           
@@ -456,9 +456,9 @@ ${formData.message}
 
           <div style={{display:'flex', justifyContent:'space-around'}}>
             <div></div>
-            <a href='https://eventhub.com/princing' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Principes <span translate='no'>EventHub</span></a>
+            <a href='https://azenium.com/princing' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Principes <span translate='no'>Azenium</span></a>
             <button onClick={() => scrollToSection('contact')} className='feature-tag' style={{fontWeight:'bold'}}>Contacts</button>
-            <a href='https://eventhub.com' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Visiter le site</a>
+            <a href='https://azenium.com' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Visiter le site</a>
             <div></div>
           </div>
           
@@ -510,7 +510,7 @@ ${formData.message}
       <section id="project" className="section project-section">
         <div className="section-container">
           <div className="section-header">
-            <h2>Le Projet <span className="highlight"><span translate="no">EventHub</span></span></h2>
+            <h2>Le Projet <span className="highlight"><span translate="no">Azenium</span></span></h2>
             <p className="section-subtitle">
               Une solution complète de gestion d'événements et d'invitations virtuelles sécurisées
             </p>
@@ -518,9 +518,9 @@ ${formData.message}
           
           <div className="project-details">
             <div className="project-description">
-              <h3>Qu'est-ce que <span translate="no">EventHub</span> ?</h3>
+              <h3>Qu'est-ce que <span translate="no">Azenium</span> ?</h3>
               <p>
-                <span translate="no">EventHub</span> est une plateforme innovante qui permet la création d'événements virtuels et hybrides 
+                <span translate="no">Azenium</span> est une plateforme innovante qui permet la création d'événements virtuels et hybrides 
                 avec des invitations digitales sécurisées utilisant la technologie QR Code avancée. 
                 Contrairement aux solutions traditionnelles, nos invitations sont impossibles à copier ou falsifier, 
                 offrant un niveau de sécurité inégalé pour tout type d'événement.
@@ -626,14 +626,14 @@ ${formData.message}
           <div className="extended-content">
             <h3>Technologie Sous-jacente</h3>
             <p style={{textAlign:'justify'}}>
-              <strong translate='no'>EventHub</strong> représente une innovation majeure dans le domaine de la gestion d'événements et des invitations digitales. 
+              <strong translate='no'>Azenium</strong> représente une innovation majeure dans le domaine de la gestion d'événements et des invitations digitales. 
               Notre plateforme combine sécurité avancée, facilité d'utilisation et design moderne pour offrir une expérience unique 
               aux organisateurs et participants d'événements. Dans un monde de plus en plus digital, la nécessité de solutions sécurisées 
               pour la gestion des accès aux événements n'a jamais été aussi critique. Les méthodes traditionnelles d'invitation papier 
               présentent de nombreuses limitations : coûts élevés, impact environnemental, risque de contrefaçon, et manque de flexibilité. <br /> <br />
                     
-              L'équipe derrière <strong translate='no'>EventHub</strong> possède une expertise approfondie dans les technologies blockchain, la cryptographie 
-              et le développement d'applications sécurisées. Notre Entreprise, <strong translate='no' style={{color:'blueviolet'}}>EventHub</strong>, aumoins 3 ans d'expérience 
+              L'équipe derrière <strong translate='no'>Azenium</strong> possède une expertise approfondie dans les technologies blockchain, la cryptographie 
+              et le développement d'applications sécurisées. Notre Entreprise, <strong translate='no' style={{color:'blueviolet'}}>Azenium</strong>, aumoins 3 ans d'expérience 
               dans le développement de solutions digitales innovantes pour le marché africain et international. Son portfolio comprend 
               plusieurs applications à succès dans les domaines de la finance digitale, de l'e-commerce et des technologies mobiles. <br /> <br />
                             
@@ -647,14 +647,14 @@ ${formData.message}
               partenariats stratégiques avec des entreprises technologiques leaders. Nous sommes ouverts à diverses formes de 
               collaboration, qu'il s'agisse d'un investissement en capital, d'un partenariat stratégique, ou d'une acquisition. <br /> <br />
               
-              La technologie derrière <strong translate='no'>EventHub</strong> a été rigoureusement testée et validée dans des conditions réelles. 
+              La technologie derrière <strong translate='no'>Azenium</strong> a été rigoureusement testée et validée dans des conditions réelles. 
               Nous avons mené des tests bêta avec plusieurs organisateurs d'événements en test, obtenant un taux de satisfaction de 94%. 
               Les retours des utilisateurs ont été extrêmement positifs, avec des éloges particuliers pour la facilité d'utilisation, 
               la fiabilité du système, et la qualité du support client.
             </p>
 
             <p style={{textAlign:'justify'}}>
-              En termes de différenciation concurrentielle, <strong translate='no'>EventHub</strong> offre plusieurs avantages uniques : 
+              En termes de différenciation concurrentielle, <strong translate='no'>Azenium</strong> offre plusieurs avantages uniques : 
             </p>
 
             <ol>
@@ -1097,7 +1097,7 @@ ${formData.message}
                     {contactInfo.whatsapp.map((number, index) => (
                       <a 
                         key={index}
-                        href={`https://wa.me/${number.replace('+', '')}?text=Bonjour%20Je%20viens%20de%20voir%20EventHub`}
+                        href={`https://wa.me/${number.replace('+', '')}?text=Bonjour%20Je%20viens%20de%20voir%20Azenium`}
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="contact-link"
@@ -1145,7 +1145,7 @@ ${formData.message}
                   <div className="method-content">
                     <h4>Site Web</h4>
                     <a 
-                      href="https://eventhub.com"
+                      href="https://azenium.com"
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="contact-link"
@@ -1153,7 +1153,7 @@ ${formData.message}
                       Accueil
                     </a>
                     <a 
-                      href="https://eventhub.com/register"
+                      href="https://azenium.com/register"
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="contact-link"
@@ -1161,7 +1161,7 @@ ${formData.message}
                       S'inscrire
                     </a>
                     <a 
-                      href="https://eventhub.com/about"
+                      href="https://azenium.com/about"
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="contact-link"
@@ -1176,8 +1176,8 @@ ${formData.message}
                 <h4><FaGlobe style={{fontSize:'1rem'}}/> Réseaux Sociaux</h4>
                 <div className="social-icons-placeholder">
                   {/* Espaces pour les réseaux sociaux */}
-                  <a href='https://linkedin.com/company/eventhub' target='_blank' className="contact-link" style={{textIndent:'15px'}}><FaLinkedin /> LinkedIn</a>
-                  <a href='https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr' target='_blank' style={{textIndent:'15px'}} className="contact-link"><FaFacebook /> FaceBook</a>
+                  <a href='https://linkedin.com/company/azenium' target='_blank' className="contact-link" style={{textIndent:'15px'}}><FaLinkedin /> LinkedIn</a>
+                  <a href='https://www.facebook.com/azenium.platform' target='_blank' style={{textIndent:'15px'}} className="contact-link"><FaFacebook /> FaceBook</a>
                   <a href='https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D' target='_blank' style={{textIndent:'15px'}} className="contact-link"><FaWhatsapp /> WhatsApp</a>
                 </div>
               </div>
@@ -1250,7 +1250,7 @@ ${formData.message}
                       value={formData.message}
                       onChange={handleInputChange}
                       required
-                      placeholder="Décrivez votre intérêt pour EventHub, votre proposition, ou posez vos questions..."
+                      placeholder="Décrivez votre intérêt pour Azenium, votre proposition, ou posez vos questions..."
                       rows={6}
                     />
                   </div>
@@ -1268,8 +1268,8 @@ ${formData.message}
         </div>
       </section>
 
-      {/* Footer avec liens vers eventhub.com */}
-      <footer className="eventhub-footer">
+      {/* Footer avec liens vers azenium.com */}
+      <footer className="azenium-footer">
         <div className="footer-container">
           <div className="footer-main">
             {/* Logo et description */}
@@ -1278,8 +1278,8 @@ ${formData.message}
                 Plateforme de création d'événements, d'invitations virtuelles et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.
               </p>
               <div className="footer-social">
-                <a href="https://linkedin.com/company/eventhub" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
-                <a href="https://www.facebook.com/share/1C1MACYWdK/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
+                <a href="https://linkedin.com/company/azenium" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
+                <a href="https://www.facebook.com/azenium.platform" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
                 <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">WhatsApp</a>
               </div>
             </div>
@@ -1288,10 +1288,10 @@ ${formData.message}
             <div className="footer-links-section">
               <h4>Liens Rapides</h4>
               <ul className="footer-links">
-                <li><a href="https://eventhub.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
-                <li><a href="https://eventhub.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
-                <li><a href="https://eventhub.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
-                <li><a href="https://eventhub.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
+                <li><a href="https://azenium.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
+                <li><a href="https://azenium.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
+                <li><a href="https://azenium.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
+                <li><a href="https://azenium.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
               </ul>
             </div>
 
@@ -1299,10 +1299,10 @@ ${formData.message}
             <div className="footer-links-section">
               <h4>Légal</h4>
               <ul className="footer-links">
-                <li><a href="https://eventhub.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
-                <li><a href="https://eventhub.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
-                <li><a href="https://eventhub.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
-                <li><a href="https://eventhub.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
+                <li><a href="https://azenium.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
+                <li><a href="https://azenium.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
+                <li><a href="https://azenium.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
+                <li><a href="https://azenium.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
               </ul>
             </div>
 
@@ -1311,23 +1311,23 @@ ${formData.message}
               <h4>Contactez-nous</h4>
               <div className="footer-contact-item">
                 <FaEnvelope />
-                <a href="mailto:info@eventhub.com">info@eventhub.com</a>
+                <a href="mailto:azenium@outlook.com">azenium@outlook.com</a>
               </div>
               <div className="footer-contact-item">
                 <FaWhatsapp />
-                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20EventHub" target="_blank" rel="noopener noreferrer">+243 978 089 552</a>
+                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20Azenium" target="_blank" rel="noopener noreferrer">+243 978 089 552</a>
               </div>
-              <a href="https://eventhub.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
-                <FaGlobe /> Visitez eventhub.com
+              <a href="https://azenium.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
+                <FaGlobe /> Visitez azenium.com
               </a>
             </div>
           </div>
 
           {/* Copyright */}
           <div className="footer-bottom">
-            <p>&copy; 2026 <span translate="no">EventHub</span>. Tous droits réservés.</p>
+            <p>&copy; 2026 <span translate="no">Azenium</span>. Tous droits réservés.</p>
             <p className="footer-powered">
-              Propulsé par <a href="https://eventhub.com" target="_blank" rel="noopener noreferrer"><span translate="no">EventHub</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
+              Propulsé par <a href="https://azenium.com" target="_blank" rel="noopener noreferrer"><span translate="no">Azenium</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
             </p>
           </div>
         </div>
