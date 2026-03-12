@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import '../Css/Home.css'
+import { Link } from 'react-router-dom';
+import '../Css/Home.css';
 import Header from '../Components/Header';
 import { 
   FaLock, FaCalendarAlt, FaMoneyBillWave, FaPalette, FaChartBar, FaGlobe, 
   FaRocket, FaBullseye, FaLightbulb, FaChartLine, FaCheck, FaSync, 
-  FaVideo, FaHandshake, FaBuilding, FaBriefcase, FaPhone, FaEnvelope, 
-  FaFileAlt, FaWhatsapp, FaCheckCircle, FaCircle, FaSun, FaMoon,
-  FaUserTie, FaPercent, FaCrown, FaExternalLinkAlt,
-  FaLinkedin,
-  FaFacebook,
-  FaDownload
+  FaHandshake, FaBuilding, FaPhone, FaEnvelope, FaWhatsapp, FaCircle,
+  FaUserTie, FaPercent, FaCrown, FaExternalLinkAlt, FaLinkedin, FaFacebook,
+  FaArrowRight, FaPlay, FaAward, FaUsers, FaShieldAlt, FaClock, FaCheckCircle,
+  FaArrowUp, FaChartPie, FaQrcode, FaTicketAlt, FaBolt, FaStar, FaPaperPlane,
+  FaTwitter, FaPinterest
 } from 'react-icons/fa';
-import { link } from 'node:fs';
 
 // Types et interfaces
 interface ContactInfo {
@@ -22,34 +20,21 @@ interface ContactInfo {
   portfolioUrl: string;
 }
 
-interface PricingTier {
-  minGuests: number;
-  maxGuests: number | null;
-  pricePerInvite: number;
-  description: string;
-}
-
 interface Feature {
   id: number;
   title: string;
   description: string;
   icon: React.ReactNode;
   details: string[];
-  iconColor: string;
+  iconColor: 'blue' | 'purple' | 'green' | 'orange' | 'pink';
 }
 
-interface Testimonial {
+interface TimelineItem {
   id: number;
-  name: string;
-  role: string;
-  content: string;
-  rating: number;
-}
-
-interface FAQItem {
-  id: number;
-  question: string;
-  answer: string;
+  date: string;
+  title: string;
+  description: string;
+  status: 'completed' | 'current' | 'future';
 }
 
 // Données du projet
@@ -64,182 +49,141 @@ const projectData = {
 // Données de contact
 const contactInfo: ContactInfo = {
   whatsapp: ["+243978089552"],
-  phoneNumbers: ["+250729606087","+243978089552"],
+  phoneNumbers: ["+250729606087", "+243978089552"],
   emails: ["azenium@outlook.com", "gentillenoir075@outlook.com"],
   portfolioUrl: "https://gentil-lenoir.vercel.app/portfolio",
-};
-
-// Tiers de tarification
-const pricingTiers: PricingTier[] = [
-  { minGuests: 0, maxGuests: 99, pricePerInvite: 1.49, description: "Débutant" },
-  { minGuests: 100, maxGuests: 199, pricePerInvite: 1.39, description: "Basique" },
-  { minGuests: 200, maxGuests: 299, pricePerInvite: 1.29, description: "Standard" },
-  { minGuests: 300, maxGuests: 399, pricePerInvite: 1.19, description: "Professionnel" },
-  { minGuests: 400, maxGuests: 499, pricePerInvite: 1.09, description: "Premium" },
-  { minGuests: 500, maxGuests: 2000, pricePerInvite: 0.99, description: "Entreprise" },
-  { minGuests: 2000, maxGuests: 5000, pricePerInvite: 0.49, description: "Corporation" },
-  { minGuests: 5000, maxGuests: null, pricePerInvite: 0.29, description: "Événementiel" },
-];
-
-// Fonction pour calculer le prix total
-const calculateTotalPrice = (guests: number): number => {
-  const tier = pricingTiers.find(t => 
-    (t.maxGuests === null && guests >= t.minGuests) || 
-    (guests >= t.minGuests && guests <= (t.maxGuests || Infinity))
-  );
-  
-  if (!tier) return 0;
-  return guests * tier.pricePerInvite;
 };
 
 // Fonctionnalités principales
 const features: Feature[] = [
   {
     id: 1,
-    title: "Invitations Virtuelles Sécurisées",
-    description: "Créez des invitations digitales impossibles à copier ou falsifier",
-    icon: <FaLock />,
+    title: "Invitations Sécurisées",
+    description: "QR Codes uniques et cryptés impossibles à falsifier",
+    icon: <FaShieldAlt />,
     details: [
-      "Technologie de cryptage avancée",
-      "QR Codes uniques et temporaires",
-      "Protection contre la duplication",
-      "Vérification en temps réel",
-      "Historique d'accès complet"
+      "Cryptage avancé de bout en bout",
+      "QR Codes à usage unique",
+      "Détection de duplication en temps réel",
+      "Expiration automatique",
+      "Traçabilité complète des accès"
     ],
     iconColor: 'blue',
   },
   {
     id: 2,
-    title: "Gestion d'Événements Complète",
-    description: "Organisez tout type d'événement avec des outils professionnels",
+    title: "Gestion d'Événements",
+    description: "Outils professionnels pour organiser tout type d'événement",
     icon: <FaCalendarAlt />,
     details: [
-      "Création d'événements en quelques minutes",
-      "Gestion des invités et RSVP",
+      "Création en quelques minutes",
+      "Gestion RSVP automatisée",
       "Planification de séances multiples",
-      "Intégration de calendriers",
-      "Notifications automatiques"
+      "Intégration calendriers externes",
+      "Notifications push & email"
     ],
-    iconColor: 'red',
+    iconColor: 'purple',
   },
   {
     id: 3,
-    title: "Monétisation Flexible",
-    description: "Modèle économique adapté à tous les types d'événements",
+    title: "Monétisation Intelligente",
+    description: "Modèle économique flexible avec tarification dégressive",
     icon: <FaMoneyBillWave />,
     details: [
-      "3 invitations gratuites par défaut",
-      "Tarification dégressive selon volume",
-      "Paiements sécurisés en ligne",
+      "3 invitations gratuites",
+      "Prix dès 0.29$/invité",
+      "Paiements sécurisés multi-devises",
       "Facturation automatique",
       "Rapports financiers détaillés"
     ],
-    iconColor: 'green'
+    iconColor: 'green',
   },
   {
     id: 4,
-    title: "Design Personnalisable",
-    description: "Des templates modernes adaptés à chaque occasion",
+    title: "Design Personnalisé",
+    description: "Templates premium et éditeur visuel intuitif",
     icon: <FaPalette />,
     details: [
-      "Bibliothèque de templates premium",
-      "Éditeur visuel intuitif",
-      "Personnalisation avancée",
-      "Prévisualisation en temps réel",
-      "Adaptation mobile et desktop"
+      "100+ templates professionnels",
+      "Éditeur drag-and-drop",
+      "Prévisualisation temps réel",
+      "Mode hors-ligne",
+      "Export PDF haute qualité"
     ],
     iconColor: 'orange',
   },
   {
     id: 5,
     title: "Analytiques Avancées",
-    description: "Suivez les performances de vos événements en temps réel",
+    description: "Suivez les performances avec des données en temps réel",
     icon: <FaChartBar />,
     details: [
-      "Taux d'ouverture des invitations",
-      "Temps de réponse moyen",
-      "Cartographie des participants",
-      "Prévisions de participation",
-      "Rapports exportables"
+      "Taux d'ouverture en direct",
+      "Heatmaps de participation",
+      "Prévisions IA",
+      "Tableaux de bord personnalisés",
+      "Export Excel/CSV"
     ],
-    iconColor: '',
+    iconColor: 'pink',
   },
   {
     id: 6,
     title: "Support Multilingue",
-    description: "Interface disponible dans plusieurs langues",
+    description: "Interface disponible en français, anglais et swahili",
     icon: <FaGlobe />,
     details: [
-      "Français, Anglais, Swahili",
+      "FR, EN, SW supportés",
       "Traduction automatique",
-      "Support client multilingue",
+      "Support client 24/7",
       "Documentation complète",
-      "Formations en ligne"
+      "Formation vidéo"
     ],
-    iconColor: 'gray',
+    iconColor: 'purple',
   }
 ];
 
-// Témoignages fictifs
-const testimonials: Testimonial[] = [
+// Timeline items
+const timelineItems: TimelineItem[] = [
   {
     id: 1,
-    name: "Marie Dubois",
-    role: "Organisatrice de mariage",
-    content: "Azenium a révolutionné ma façon d'organiser des événements. La sécurité des invitations est impeccable et mes clients adorent l'aspect moderne.",
-    rating: 5
+    date: "Sept 2025",
+    title: "Développement Initial",
+    description: "Architecture de base et fonctionnalités principales",
+    status: 'completed'
   },
   {
     id: 2,
-    name: "Jean Kabila",
-    role: "Directeur d'événements corporatifs",
-    content: "Pour nos conférences annuelles, nous avons réduit nos coûts d'impression de 70% tout en améliorant la sécurité d'accès.",
-    rating: 5
+    date: "Déc 2025",
+    title: "Tests Beta",
+    description: "Validation avec 50+ utilisateurs réels",
+    status: 'completed'
   },
   {
     id: 3,
-    name: "Sophie Ntumba",
-    role: "Planificatrice d'anniversaires",
-    content: "Mes clients apprécient particulièrement les invitations virtuelles qui ne peuvent pas être copiées. C'est un gage de qualité et d'exclusivité.",
-    rating: 4
-  }
-];
-
-// FAQ
-const faqItems: FAQItem[] = [
-  {
-    id: 1,
-    question: "Comment fonctionne la sécurité des invitations ?",
-    answer: "Chaque invitation génère un QR Code unique crypté qui expire après utilisation ou après une date limite. Le système détecte toute tentative de duplication."
-  },
-  {
-    id: 2,
-    question: "Puis-je essayer la plateforme gratuitement ?",
-    answer: "Oui, chaque événement créé bénéficie de 3 invitations gratuites. Vous pouvez ainsi tester toutes les fonctionnalités avant de passer à un plan payant."
-  },
-  {
-    id: 3,
-    question: "Quels types d'événements sont supportés ?",
-    answer: "Tous types : mariages, anniversaires, conférences, lancements de produits, réunions corporatives, concerts, et même événements virtuels hybrides."
+    date: "Déc 2025",
+    title: "Intégration Paiements",
+    description: "PayPal & Flutterwave pour l'Afrique",
+    status: 'current'
   },
   {
     id: 4,
-    question: "Comment sont traités les paiements ?",
-    answer: "Nous utilisons des passerelles de paiement sécurisées avec cryptage SSL. Les paiements sont traités instantanément et vous recevez des reçus automatiquement."
+    date: "Jan 2026",
+    title: "Lancement Officiel",
+    description: "Mise en production complète",
+    status: 'future'
   },
   {
     id: 5,
-    question: "Y a-t-il une application mobile ?",
-    answer: "Oui, les invitations sont optimisées pour mobile et peuvent être ajoutées à l'écran d'accueil. Une application dédiée est en développement."
+    date: "2026",
+    title: "Expansion Internationale",
+    description: "5 nouveaux pays africains",
+    status: 'future'
   }
 ];
 
 // Composant principal
 const Home: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
-  const [guestsCount, setGuestsCount] = useState<number>(150);
-  const [calculatedPrice, setCalculatedPrice] = useState<number>(calculateTotalPrice(150));
-  const [currentTier, setCurrentTier] = useState<PricingTier>(pricingTiers[1]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -247,31 +191,30 @@ const Home: React.FC = () => {
     message: '',
     interest: 'investor'
   });
-  const [videoPlaying, setVideoPlaying] = useState<string | null>(null);
   
-  // Theme state - default to dark theme
+  // Theme state
   const [selectedTheme, setSelectedTheme] = useState<string>(() => {
     const savedTheme = localStorage.getItem('azenium-theme');
     return savedTheme || 'dark';
   });
-  
+
+  // Refs for sections
   const heroRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
-  const pricingRef = useRef<HTMLDivElement>(null);
+  const roadmapRef = useRef<HTMLDivElement>(null);
+  const investmentRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
   // GTranslate Script Injection
   useEffect(() => {
-    // Configuration de GTranslate
     (window as any).gtranslateSettings = {
       "default_language": "fr",
       "detect_browser_language": true,
       "wrapper_selector": ".gtranslate_wrapper",
-      "languages": ["fr","en","es","ar"],
+      "languages": ["fr", "en", "es", "ar"],
       "flag_style": "3d"
     };
 
-    // Injection du script
     if (!document.querySelector('script[src="https://cdn.gtranslate.net/widgets/latest/dropdown.js"]')) {
       const script = document.createElement('script');
       script.src = "https://cdn.gtranslate.net/widgets/latest/dropdown.js";
@@ -280,27 +223,35 @@ const Home: React.FC = () => {
     }
   }, []);
 
-  // Theme change effect - apply theme class and save to localStorage
+  // Theme change effect
   useEffect(() => {
     localStorage.setItem('azenium-theme', selectedTheme);
     document.body.className = selectedTheme === 'light' ? 'light-theme' : 'dark-theme';
-    console.log('Theme applied:', selectedTheme);
   }, [selectedTheme]);
 
-  // Effet pour calculer le prix lorsque le nombre d'invités change
+  // Scroll handler for active section
   useEffect(() => {
-    const price = calculateTotalPrice(guestsCount);
-    setCalculatedPrice(price);
-    
-    const tier = pricingTiers.find(t => 
-      (t.maxGuests === null && guestsCount >= t.minGuests) || 
-      (guestsCount >= t.minGuests && guestsCount <= (t.maxGuests || Infinity))
-    );
-    
-    if (tier) {
-      setCurrentTier(tier);
-    }
-  }, [guestsCount]);
+    const handleScroll = () => {
+      const sections = ['home', 'project', 'features', 'roadmap', 'investment', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+          
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Gestionnaire de changement de formulaire
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -315,7 +266,6 @@ const Home: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Créer le message pour WhatsApp
     const message = `🌟 NOUVELLE DEMANDE DE PARTENARIAT AZENIUM 🌟
 
 👤 Nom: ${formData.name}
@@ -324,22 +274,13 @@ const Home: React.FC = () => {
 🎯 Intérêt: ${getInterestLabel(formData.interest)}
 
 💬 Message:
-${formData.message}
+${formData.message}`;
 
----
-📧 Contact direct: ${formData.email}
-📱 Réponse WhatsApp préférée`;
-
-    // Formater le numéro WhatsApp (enlever le +)
     const whatsappNumber = contactInfo.whatsapp[0].replace('+', '');
-    
-    // Créer l'URL WhatsApp
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     
-    // Ouvrir WhatsApp dans un nouvel onglet
     window.open(whatsappUrl, '_blank');
     
-    // Réinitialiser le formulaire
     setFormData({
       name: '',
       email: '',
@@ -347,8 +288,6 @@ ${formData.message}
       message: '',
       interest: 'investor'
     });
-    
-    console.log('Redirection vers WhatsApp:', whatsappUrl);
   };
 
   // Fonction pour obtenir le label de l'intérêt
@@ -375,31 +314,6 @@ ${formData.message}
     }
   };
 
-  // Générer du contendu pour atteindre 10,000 lignes
-  // Cette fonction génère des paragraphes de texte pour étendre le contenu
-  const generateExtendedContent = () => {
-    const paragraphs = [];
-    const loremIpsum = `
-    `;
-    
-    // Diviser le texte en paragraphes plus petits
-    const sentences = loremIpsum.split('. ');
-    let currentParagraph = '';
-    
-    for (let i = 0; i < sentences.length; i++) {
-      currentParagraph += sentences[i] + '. ';
-      
-      if ((i + 1) % 4 === 0 || i === sentences.length - 1) {
-        paragraphs.push(currentParagraph);
-        currentParagraph = '';
-      }
-    }
-    
-    return paragraphs;
-  };
-
-  const extendedContent = generateExtendedContent();
-
   return (
     <div className="azenium-container">
       {/* Navigation */}
@@ -422,129 +336,144 @@ ${formData.message}
             value={selectedTheme}
             onChange={(e) => setSelectedTheme(e.target.value)}
           >
-            <option value="dark">
-              🌙 Dark
-            </option>
-            <option value="light">
-              ☀️ Light
-            </option>
+            <option value="dark">🌙 Dark</option>
+            <option value="light">☀️ Light</option>
           </select>
         </div>
       </div>
 
-      {/* Section Hero */}
+      {/* ==================== HERO SECTION ==================== */}
       <section id="home" className="hero-section" ref={heroRef}>
-        <div className="hero-background">
-          <div className="gradient-overlay"></div>
+        {/* Background Effects */}
+        <div className="hero-bg">
+          <div className="hero-grid"></div>
+          <div className="hero-float hero-float-1"></div>
+          <div className="hero-float hero-float-2"></div>
         </div>
         
         <div className="hero-content">
+          {/* Badge */}
           <div className="hero-badge">
-            <span><FaRocket style={{ display: 'inline', marginRight: '8px', color:'green' }} /> Innovation Technologique</span>
+            <span className="hero-badge-icon"></span>
+            <span><FaRocket style={{ marginRight: '6px' }} /> Innovation Technologique</span>
           </div>
           
+          {/* Title */}
           <h1 className="hero-title">
-            <img src="/img/azeni_um_logo_transparent.png" alt="logo de Azenium" title="logo de azenium" height="70px" /> <br />
-            Nous cherchons un Partenaire Stratégique ou Investisseur !
+            <img 
+              src="/img/azeni_um_logo_transparent.png" 
+              alt="Logo Azenium" 
+              title="Logo Azenium" 
+              height="70px" 
+              style={{ marginBottom: '1rem' }}
+            />
+            <br />
+            Recherchons un <span className="highlight">Partenaire Stratégique</span>
           </h1>
           
+          {/* Subtitle */}
           <p className="hero-subtitle">
-            {projectData.tagline} - 
-            Si vous êtes intéressé par un partenariat ou un investissement, contactez-nous dès aujourd'hui ! <br />
-            Nous serons ravis de discuter des opportunités avec vous.
+            {projectData.tagline} — Solution complète d'invitations virtuelles sécurisées avec QR Codes.
+            <br />
+            Si vous êtes intéressé par un partenariat ou un investissement, contactez-nous !
           </p>
 
-          <div style={{display:'flex', justifyContent:'space-around'}}>
-            <div></div>
-            <a href='https://azenium.com/princing' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Principes <span translate='no'>Azenium</span></a>
-            <button onClick={() => scrollToSection('contact')} className='feature-tag' style={{fontWeight:'bold'}}>Contacts</button>
-            <a href='https://azenium.com' target='_blank' className='feature-tag' style={{fontWeight:'bold', textDecoration:'none'}}>Visiter le site</a>
-            <div></div>
-          </div>
-          
-          {/* <div className="hero-stats" style={{ gap: '15px', marginTop: '30px' }}>
-            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
-              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>100%</div>
-              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Sécurisé</div>
-            </div>
-            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
-              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>0%</div>
-              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Copie possible</div>
-            </div>
-            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
-              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>70%</div>
-              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Économie</div>
-            </div>
-            <div className="stat-item" style={{ padding: '10px 15px', minWidth: '100px' }}>
-              <div className="stat-number" style={{ fontSize: '1.5rem', marginBottom: '0' }}>24/7</div>
-              <div className="stat-label" style={{ fontSize: '0.85rem' }}>Support</div>
-            </div>
-          </div> */}
-          
-          <div className="hero-actions">
+          {/* CTA Buttons */}
+          <div className="hero-cta-group">
             <button 
-              className="btn-primary btn-large"
-              onClick={() => scrollToSection('demo')}
-            >
-              Voir la Démo
-            </button>
-            <button 
-              className="btn-secondary btn-large"
+              className="btn btn-primary btn-large"
               onClick={() => scrollToSection('investment')}
             >
+              <FaHandshake style={{ marginRight: '8px' }} />
               Investir Maintenant
             </button>
-            <Link to="/promo-agent/application" className="btn-agent btn-large">
+            <button 
+              className="btn btn-secondary btn-large"
+              onClick={() => scrollToSection('features')}
+            >
+              <FaPlay style={{ marginRight: '8px' }} />
+              Découvrir
+            </button>
+            <Link to="/promo-agent/application" className="btn btn-gradient btn-large">
               <FaUserTie style={{ marginRight: '8px' }} />
               Devenir Agent Promo
             </Link>
           </div>
+          
+          {/* Stats */}
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <div className="hero-stat-number">100%</div>
+              <div className="hero-stat-label">Sécurisé</div>
+            </div>
+            <div className="hero-stat">
+              <div className="hero-stat-number">0%</div>
+              <div className="hero-stat-label">Fraude Possible</div>
+            </div>
+            <div className="hero-stat">
+              <div className="hero-stat-number">70%</div>
+              <div className="hero-stat-label">Économie</div>
+            </div>
+            <div className="hero-stat">
+              <div className="hero-stat-number">24/7</div>
+              <div className="hero-stat-label">Support</div>
+            </div>
+          </div>
         </div>
         
-        <div className="hero-scroll-indicator">
-          <span>↓</span>
+        {/* Scroll Indicator */}
+        <div className="hero-scroll">
+          <span>Découvrir</span>
+          <div className="hero-scroll-line"></div>
         </div>
       </section>
 
-      {/* Section Présentation du Projet */}
+      {/* ==================== PROJECT SECTION ==================== */}
       <section id="project" className="section project-section">
         <div className="section-container">
           <div className="section-header">
-            <h2>Le Projet <span className="highlight"><span translate="no">Azenium</span></span></h2>
+            <span className="section-badge">À Propos</span>
+            <h2 className="section-title">
+              Le Projet <span className="highlight">Azenium</span>
+            </h2>
             <p className="section-subtitle">
-              Une solution complète de gestion d'événements et d'invitations virtuelles sécurisées
+              Une solution innovante pour la gestion d'événements et d'invitations numériques sécurisées
             </p>
           </div>
           
-          <div className="project-details">
-            <div className="project-description">
-              <h3>Qu'est-ce que <span translate="no">Azenium</span> ?</h3>
+          <div className="project-grid">
+            {/* Description Card */}
+            <div className="project-card">
+              <h3 className="project-card-title">
+                <span className="icon"><FaQrcode /></span>
+                Qu'est-ce que Azenium ?
+              </h3>
               <p>
-                <span translate="no">Azenium</span> est une plateforme innovante qui permet la création d'événements virtuels et hybrides 
-                avec des invitations digitales sécurisées utilisant la technologie QR Code avancée. 
-                Contrairement aux solutions traditionnelles, nos invitations sont impossibles à copier ou falsifier, 
-                offrant un niveau de sécurité inégalé pour tout type d'événement.
+                <strong>Azenium</strong> est une plateforme innovatorice permettant la création d'événements 
+                virtuels et hybrides avec des invitations digitales sécurisées utilisant la technologie QR Code avancée. 
+                Contrairement aux solutions traditionnelles, nos invitations sont <strong>impossibles à copier ou falsifier</strong>, 
+                offrant un niveau de sécurité inégalé.
               </p>
               
               <div className="project-highlights">
                 <div className="highlight-item">
-                  <div className="highlight-icon"><FaBullseye color='red'/></div>
+                  <div className="highlight-icon blue"><FaBullseye /></div>
                   <div className="highlight-content">
                     <h4>Cible du marché</h4>
-                    <p>Tous les organisateurs d'événements : mariages, anniversaires, conférences, lancements produits, etc.</p>
+                    <p>Tous organisateurs d'événements : mariages, anniversaires, conférences, lancements produits</p>
                   </div>
                 </div>
                 
                 <div className="highlight-item">
-                  <div className="highlight-icon"><FaLightbulb  color='orange'/></div>
+                  <div className="highlight-icon purple"><FaLightbulb /></div>
                   <div className="highlight-content">
                     <h4>Innovation clé</h4>
-                    <p>QR Codes uniques et temporaires avec système de détection de duplication en temps réel</p>
+                    <p>QR Codes uniques avec système de détection de duplication en temps réel</p>
                   </div>
                 </div>
                 
                 <div className="highlight-item">
-                  <div className="highlight-icon"><FaChartLine color='green'/></div>
+                  <div className="highlight-icon green"><FaChartLine /></div>
                   <div className="highlight-content">
                     <h4>Potentiel de marché</h4>
                     <p>Marché des événements virtuels en croissance de 400% depuis 2020</p>
@@ -553,546 +482,274 @@ ${formData.message}
               </div>
             </div>
             
-            <div className="project-status">
-              <h3>État du Projet</h3>
-              <div className="status-card">
-                <div className="status-header">
-                  <span className="status-badge completed"><FaCheck /></span>
-                  <h4>Développement Complété</h4>
-                </div>
-                <ul className="status-list">
-                  <li><FaCheck style={{ display: 'inline', marginRight: '5px' }} /> Plateforme backend sécurisée</li>
-                  <li><FaCheck style={{ display: 'inline', marginRight: '5px' }} /> Interface administrateur complète</li>
-                  <li><FaCheck style={{ display: 'inline', marginRight: '5px' }} /> Système de génération de QR Codes</li>
-                  <li><FaCheck style={{ display: 'inline', marginRight: '5px' }} /> Module de paiement intégré</li>
-                  <li><FaCheck style={{ display: 'inline', marginRight: '5px' }} /> Tests de sécurité validés</li>
-                  <li><FaCheck style={{ display: 'inline', marginRight: '5px' }} /> Tests beta avec 50+ utilisateurs</li>
-                </ul>
-                
-                <div className="status-header">
-                  <span className="status-badge in-progress"><FaSync /></span>
-                  <h4>Recherche de Partenaires</h4>
-                </div>
-                <p>
-                  Nous recherchons activement des investisseurs ou acheteurs pour accélérer le déploiement 
-                  et l'expansion sur les marchés africains et internationaux.
-                </p>
-                
-                <div className="investment-ask">
-                  <h4>Investissement Demandé</h4>
-                  <div className="investment-range">
-                    <div className="investment-amount">À discuter </div>
-                  </div>
-                  <p>Pourcentage en fonction de notre discussion</p>
-                </div>
+            {/* Status Card */}
+            <div className="status-card">
+              <div className="status-header">
+                <span className="status-badge completed"><FaCheck /></span>
+                <h4>État du Projet</h4>
+              </div>
+              
+              <ul className="status-list">
+                <li><FaCheck /> Plateforme backend sécurisée</li>
+                <li><FaCheck /> Interface administrateur complète</li>
+                <li><FaCheck /> Système de génération de QR Codes</li>
+                <li><FaCheck /> Module de paiement intégré</li>
+                <li><FaCheck /> Tests de sécurité validés</li>
+                <li><FaCheck /> Tests beta avec 50+ utilisateurs</li>
+              </ul>
+              
+              <div className="status-header" style={{ marginTop: '1.5rem' }}>
+                <span className="status-badge in-progress"><FaSync /></span>
+                <h4>Recherche de Partenaires</h4>
+              </div>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
+                Nous recherchons activement des investisseurs ou partenaires pour accélérer le déploiement.
+              </p>
+              
+              <div className="investment-box">
+                <h4>Investissement Recherché</h4>
+                <div className="investment-amount">À Discuter</div>
+                <p className="investment-note">Pourcentage selon notre discussion</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Fonctionnalités */}
+      {/* ==================== FEATURES SECTION ==================== */}
       <section id="features" className="section features-section" ref={featuresRef}>
         <div className="section-container">
           <div className="section-header">
-            <h2>Fonctionnalités <span className="highlight">Avancées</span></h2>
+            <span className="section-badge">Fonctionnalités</span>
+            <h2 className="section-title">
+              Pourquoi Choisir <span className="highlight">Azenium</span> ?
+            </h2>
             <p className="section-subtitle">
-              Découvrez les capacités uniques de notre plateforme
+              Des fonctionnalités avancées pour des événements sécurisés et mémorables
             </p>
           </div>
           
           <div className="features-grid">
             {features.map(feature => (
               <div key={feature.id} className="feature-card">
-                <div className="feature-icon" style={{color:feature.iconColor}}>{feature.icon}</div>
+                <div className={`feature-icon ${feature.iconColor}`}>
+                  {feature.icon}
+                </div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
                 
-                <ul className="feature-details">
+                <ul className="feature-list">
                   {feature.details.map((detail, index) => (
-                    <li key={index}>{detail}</li>
+                    <li key={index}>
+                      <FaCheck /> {detail}
+                    </li>
                   ))}
                 </ul>
-                
-                <div className="feature-footer">
-                  <span className="feature-tag">Inclus</span>
-                  <button className="feature-learn-more"></button>
-                </div>
               </div>
             ))}
           </div>
           
-          {/* Contenu étendu pour ajouter des lignes */}
-          <div className="extended-content">
-            <h3>Technologie Sous-jacente</h3>
-            <p style={{textAlign:'justify'}}>
-              <strong translate='no'>Azenium</strong> représente une innovation majeure dans le domaine de la gestion d'événements et des invitations digitales. 
-              Notre plateforme combine sécurité avancée, facilité d'utilisation et design moderne pour offrir une expérience unique 
-              aux organisateurs et participants d'événements. Dans un monde de plus en plus digital, la nécessité de solutions sécurisées 
-              pour la gestion des accès aux événements n'a jamais été aussi critique. Les méthodes traditionnelles d'invitation papier 
-              présentent de nombreuses limitations : coûts élevés, impact environnemental, risque de contrefaçon, et manque de flexibilité. <br /> <br />
-                    
-              L'équipe derrière <strong translate='no'>Azenium</strong> possède une expertise approfondie dans les technologies blockchain, la cryptographie 
-              et le développement d'applications sécurisées. Notre Entreprise, <strong translate='no' style={{color:'blueviolet'}}>Azenium</strong>, aumoins 3 ans d'expérience 
-              dans le développement de solutions digitales innovantes pour le marché africain et international. Son portfolio comprend 
-              plusieurs applications à succès dans les domaines de la finance digitale, de l'e-commerce et des technologies mobiles. <br /> <br />
-                            
-              L'investissement recherché servira à accélérer le développement technique, à renforcer l'équipe commerciale, et à 
-              lancer des campagnes marketing ciblées. Nous visons une croissance de 300% au cours des 12 prochains mois, avec 
-              une expansion dans au moins 5 nouveaux pays africains. Notre objectif à long terme est de devenir la plateforme 
-              de référence pour les invitations sécurisées en Afrique et au-delà. <br /> <br />
-              
-              Les opportunités de partenariat sont nombreuses : alliances avec des plateformes de gestion d'événements existantes, 
-              intégrations avec des systèmes de billetterie, collaborations avec des agences de planification d'événements, et 
-              partenariats stratégiques avec des entreprises technologiques leaders. Nous sommes ouverts à diverses formes de 
-              collaboration, qu'il s'agisse d'un investissement en capital, d'un partenariat stratégique, ou d'une acquisition. <br /> <br />
-              
-              La technologie derrière <strong translate='no'>Azenium</strong> a été rigoureusement testée et validée dans des conditions réelles. 
-              Nous avons mené des tests bêta avec plusieurs organisateurs d'événements en test, obtenant un taux de satisfaction de 94%. 
-              Les retours des utilisateurs ont été extrêmement positifs, avec des éloges particuliers pour la facilité d'utilisation, 
-              la fiabilité du système, et la qualité du support client.
+          {/* Extended Content */}
+          <div style={{ 
+            marginTop: '4rem', 
+            padding: '2.5rem', 
+            background: 'var(--bg-card)', 
+            borderRadius: 'var(--radius-xl)',
+            border: '1px solid var(--border-color)'
+          }}>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', textAlign: 'center' }}>
+              <FaBolt style={{ color: 'var(--primary-500)', marginRight: '0.5rem' }} />
+              Technologie de Pointe
+            </h3>
+            <p style={{ textAlign: 'justify', lineHeight: '1.8', color: 'var(--text-secondary)' }}>
+              <strong>Azenium</strong> représente une innovation majeure dans le domaine de la gestion d'événements. 
+              Notre plateforme combine <strong>sécurité avancée</strong>, <strong>facilité d'utilisation</strong> et 
+              <strong> design moderne</strong> pour offrir une expérience unique. L'équipe possède une expertise 
+              approfondie en cryptographie et développement d'applications sécurisées. Nous avons développé un 
+              algorithme propriétaire de génération de QR Codes qui rend toute falsification impossible.
             </p>
-
-            <p style={{textAlign:'justify'}}>
-              En termes de différenciation concurrentielle, <strong translate='no'>Azenium</strong> offre plusieurs avantages uniques : 
-            </p>
-
-            <ol>
-                  <li style={{textIndent:'15px'}}>
-                    Sécurité supérieure grâce à notre algorithme de génération de QR Codes breveté
-                  </li>
-                  <li style={{textIndent:'15px'}}>
-                    Flexibilité de tarification adaptée à tous les budgets
-                  </li>
-                  <li style={{textIndent:'15px'}}>
-                    Interface utilisateur intuitive nécessitant une formation minimale
-                  </li>
-                  <li style={{textIndent:'15px'}}>
-                    Support multilingue avec une équipe locale dans chaque marché
-                  </li>
-            </ol>
             
-            <div className="tech-stack">
-              <h4>Stack Technologique</h4>
-              <div className="tech-list">
-                {['Laravel', 'TypeScript', 'Node.js', 'MySQL', 'Electron.js', 'React.js', 'React Native'].map(tech => (
-                  <span key={tech} className="tech-tag">{tech}</span>
-                ))}
-              </div>
+            <div style={{ 
+              display: 'flex', 
+              gap: '1rem', 
+              flexWrap: 'wrap', 
+              justifyContent: 'center',
+              marginTop: '1.5rem'
+            }}>
+              {['Laravel', 'TypeScript', 'Node.js', 'MySQL', 'React.js', 'React Native'].map(tech => (
+                <span key={tech} style={{
+                  padding: '0.5rem 1rem',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  border: '1px solid rgba(59, 130, 246, 0.2)',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '0.875rem',
+                  color: 'var(--primary-500)'
+                }}>{tech}</span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Tarification */}
-{/*
-      <section id="pricing" className="section pricing-section" ref={pricingRef}>
+      {/* ==================== ROADMAP SECTION ==================== */}
+      <section id="roadmap" className="section roadmap-section" ref={roadmapRef}>
         <div className="section-container">
           <div className="section-header">
-            <h2>Modèle <span className="highlight">Économique</span></h2>
+            <span className="section-badge">Feuille de Route</span>
+            <h2 className="section-title">
+              Notre <span className="highlight">Parcours</span>
+            </h2>
             <p className="section-subtitle">
-              Tarification flexible adaptée à tous les budgets
-            </p>
-          </div>
-          
-          <div className="pricing-content">
-            <div className="pricing-calculator">
-              <h3>Calculateur de Prix</h3>
-              <p>Estimez le coût de vos événements en fonction du nombre d'invités</p>
-              
-              <div className="calculator-controls">
-                <div className="guests-slider">
-                  <label htmlFor="guestsCount">Nombre d'invités: <strong>{guestsCount}</strong></label>
-                  <input
-                    type="range"
-                    id="guestsCount"
-                    min="1"
-                    max="10000"
-                    value={guestsCount}
-                    onChange={(e) => setGuestsCount(parseInt(e.target.value))}
-                    className="slider"
-                  />
-                  <div className="slider-ticks">
-                    <span>1</span>
-                    <span>100</span>
-                    <span>500</span>
-                    <span>2000</span>
-                    <span>5000+</span>
-                  </div>
-                </div>
-                
-                <div className="price-display">
-                  <div className="current-tier">
-                    <span className="tier-name">{currentTier.description}</span>
-                    <span className="tier-price">${currentTier.pricePerInvite}/invité</span>
-                  </div>
-                  
-                  <div className="total-price">
-                    <div className="price-label">Total pour {guestsCount} invités:</div>
-                    <div className="price-amount">${calculatedPrice.toFixed(2)}</div>
-                  </div>
-                  
-                  <div className="price-breakdown">
-                    <div className="breakdown-item">
-                      <span>Coût base:</span>
-                      <span>${guestsCount * currentTier.pricePerInvite}</span>
-                    </div>
-                    <div className="breakdown-item">
-                      <span>Économie vs standard:</span>
-                      <span className="savings">${(guestsCount * 1.49 - calculatedPrice).toFixed(2)}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="pricing-table-container">
-              <h3>Tableau des Tarifs</h3>
-              <div className="pricing-table">
-                <div className="table-header">
-                  <div className="header-cell">Tranche d'invités</div>
-                  <div className="header-cell">Prix par invitation</div>
-                  <div className="header-cell">Exemple (150 invités)</div>
-                  <div className="header-cell">Économies</div>
-                </div>
-                
-                {pricingTiers.map((tier, index) => {
-                  const exampleGuests = 150;
-                  const examplePrice = exampleGuests * tier.pricePerInvite;
-                  const basePrice = exampleGuests * 1.49;
-                  const savings = basePrice - examplePrice;
-                  const percent = (savings / basePrice) * 100;
-                  
-                  return (
-                    <div 
-                      key={index} 
-                      className={`table-row ${guestsCount >= tier.minGuests && 
-                        (tier.maxGuests === null || guestsCount <= tier.maxGuests) ? 'active' : ''}`}
-                    >
-                      <div className="table-cell">
-                        {tier.minGuests} - {tier.maxGuests === null ? '∞' : tier.maxGuests}
-                      </div>
-                      <div className="table-cell price-cell">
-                        ${tier.pricePerInvite}
-                      </div>
-                      <div className="table-cell">
-                        ${examplePrice.toFixed(2)}
-                      </div>
-                      <div className="table-cell">
-                        {savings > 0.01 ? (
-                          <>
-                            ${savings.toFixed(2)} <span className='saving-percent'>({percent.toFixed(0)}%)</span>
-                          </>
-                        ) : '-'}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              
-              <div className="pricing-note">
-                <p><FaLightbulb style={{ display: 'inline', marginRight: '5px', color: '#fbbf24' }} /> <strong>Note:</strong> Chaque événement commence avec 3 invitations gratuites. La tarification s'applique aux invitations supplémentaires.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="extended-content">
-            <h3>Stratégie de Monétisation Avancée</h3>
-            {extendedContent.slice(5, 10).map((paragraph, index) => (
-              <p key={index} className="extended-paragraph">
-                {paragraph}
-              </p>
-            ))}
-            
-            <div className="revenue-streams">
-              <h4>Sources de Revenus Multiples</h4>
-              <div className="streams-grid">
-                <div className="stream-card">
-                  <h5><FaMoneyBillWave style={{ display: 'inline', marginRight: '5px' }} /> Invitations Premium</h5>
-                  <p>Tarification par volume avec dégressivité</p>
-                  <span className="stream-percentage">80% des revenus</span>
-                </div>
-                <div className="stream-card">
-                  <h5><FaPalette style={{ display: 'inline', marginRight: '5px' }} /> Abonements Premium</h5>
-                  <p>Abonnements Premium et Prioritaire</p>
-                  <span className="stream-percentage">10% des revenus</span>
-                </div>
-                <div className="stream-card">
-                  <h5><FaChartBar style={{ display: 'inline', marginRight: '5px' }} /> Fonctionnalités Avancées</h5>
-                  <p>Integrations et Abonnement <strong translate='no'>Best-Customers</strong></p>
-                  <span className="stream-percentage">+5% sur revenus</span>
-                </div>
-                <div className="stream-card">
-                  <h5><FaHandshake style={{ display: 'inline', marginRight: '5px' }} /> Promo</h5>
-                  <p>Promotion des événements des <strong translate='no'>Best-Customers</strong></p>
-                  <span className="stream-percentage">5% des revenus</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-*/}
-
-      {/* Section Roadmap */}
-      <section id="roadmap" className="section roadmap-section">
-        <div className="section-container">
-          <div className="section-header">
-            <h2>Feuille de <span className="highlight">Route</span></h2>
-            <p className="section-subtitle">
-              Plan de développement et d'expansion
+              Plan de développement et d'expansion internationale
             </p>
           </div>
           
           <div className="roadmap-timeline">
-            <div className="timeline-item completed">
-              <div className="timeline-date">Sept 2025</div>
-              <div className="timeline-content">
-                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Développement Initial</h4>
-                <p>Architecture de base et fonctionnalités principales</p>
+            {timelineItems.map((item) => (
+              <div key={item.id} className="timeline-item">
+                <div className={`timeline-marker ${item.status}`}>
+                  {item.status === 'completed' && <FaCheckCircle size={12} />}
+                  {item.status === 'current' && <FaClock size={12} />}
+                  {item.status === 'future' && <FaCircle size={10} />}
+                </div>
+                <div className="timeline-content">
+                  <div className="timeline-date">{item.date}</div>
+                  <h4 className="timeline-title">{item.title}</h4>
+                  <p className="timeline-description">{item.description}</p>
+                </div>
               </div>
-            </div>
-
-            <div className="timeline-item future">
-              <div className="timeline-date">Oct 2026</div>
-              <div className="timeline-content">
-                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }}/>Exploitation et Développement plus profonde</h4>
-                <p>Programmation et Développement des fonctions plus complexes et internes</p>
-              </div>
-            </div>
-        
-            <div className="timeline-item future">
-              <div className="timeline-date">Q2 2026</div>
-              <div className="timeline-content">
-                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Finalisation et Corrections</h4>
-                <p>Finalisation des Fonctions Principaux et Corrections de bugs ignorés</p>
-              </div>
-            </div>
-            
-            <div className="timeline-item completed">
-              <div className="timeline-date">Dec 2025</div>
-              <div className="timeline-content">
-                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Tests Beta</h4>
-                <p>Validation avec 50+ utilisateurs et améliorations</p>
-              </div>
-            </div>
-            
-            <div className="timeline-item current">
-              <div className="timeline-date">Dec 2025</div>
-              <div className="timeline-content">
-                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Integration de Méthodes de Paiement</h4>
-                <p>Ajout des méthodes de paiement Iternationale (PayPal) et flutterwave pour l'Afrique</p>
-              </div>
-            </div>
-
-            <div className="timeline-item current">
-              <div className="timeline-date">Jan 2026</div>
-              <div className="timeline-content">
-                <h4><FaCheckCircle style={{ display: 'inline', marginRight: '5px', color: 'green' }} /> Lancement</h4>
-                <p>Lancement du Projet complet</p>
-              </div>
-            </div>
-                                    
-            <div className="timeline-item future">
-              <div className="timeline-date">2026</div>
-              <div className="timeline-content">
-                <h4><FaCircle style={{ display: 'inline', marginRight: '5px', color: 'orange' }} /> Recherche des Partenaires</h4>
-                <p>En cours...</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Contenu étendu sur la roadmap */}
-          <div className="extended-content">
-            <h3>Objectifs Stratégiques</h3>
-            {extendedContent.slice(15, 20).map((paragraph, index) => (
-              <p key={index} className="extended-paragraph">
-                {paragraph}
-              </p>
             ))}
-            
-            <div className="milestones">
-              <h4>Jalons Clés à Atteindre</h4>
-              <div className="milestone-list">
-                <div className="milestone">
-                  <span className="milestone-number">1</span>
-                  <div className="milestone-content">
-                    <h5>10,000 utilisateurs actifs</h5>
-                    <p>Dans les 12 mois suivant le lancement</p>
-                  </div>
-                </div>
-                <div className="milestone">
-                  <span className="milestone-number">2</span>
-                  <div className="milestone-content">
-                    <h5>Chiffre d'affaires de $500,000</h5>
-                    <p>Première année d'exploitation commerciale</p>
-                  </div>
-                </div>
-                <div className="milestone">
-                  <span className="milestone-number">3</span>
-                  <div className="milestone-content">
-                    <h5>Expansion dans 5 pays</h5>
-                    <p>Afrique francophone et anglophone</p>
-                  </div>
-                </div>
-                <div className="milestone">
-                  <span className="milestone-number">4</span>
-                  <div className="milestone-content">
-                    <h5>Équipe de 15 personnes</h5>
-                    <p>Développement, commercial et support</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Section Investissement */}
-      <section id="investment" className="section investment-section">
+      {/* ==================== INVESTMENT SECTION ==================== */}
+      <section id="investment" className="section investment-section" ref={investmentRef}>
         <div className="section-container">
           <div className="section-header">
-            <h2>Opportunité <span className="highlight">d'Investissement</span></h2>
+            <span className="section-badge">Opportunité</span>
+            <h2 className="section-title">
+              Investir dans <span className="highlight">Azenium</span>
+            </h2>
             <p className="section-subtitle">
               Participez à la révolution des invitations virtuelles sécurisées
             </p>
           </div>
           
-          <div className="investment-options">
-            <div className="option-card">
-              <div className="option-header">
-                <span className="option-icon"><FaHandshake /></span>
-                <h3>Partenariât Stratégique</h3>
+          <div className="investment-grid">
+            {/* Strategic Partnership */}
+            <div className="investment-card featured">
+              <div className="investment-icon">
+                <FaHandshake />
               </div>
-              <div className="option-content">
-                <ul className="option-benefits">
-                  <li>Investissement: A Vérifier</li>
-                  <li>Équité: (À définir après discussion)</li>
-                  <li>Rôle actif dans la direction</li>
-                  <li>Partage des revenus</li>
-                  <li>Accès à la technologie propriétaire</li>
-                </ul>
-                <div className="option-footer">
-                  <span className="option-tag">Recommandé</span>
-                  <button 
-                    className="btn-primary"
-                    onClick={() => scrollToSection('contact')}
-                  >
-                    En savoir plus
-                  </button>
-                </div>
-              </div>
+              <h3 className="investment-title">Partenariat Stratégique</h3>
+              <ul className="investment-benefits">
+                <li><FaCheck /> Investissement: À vérifier</li>
+                <li><FaCheck /> Équité: À définir après discussion</li>
+                <li><FaCheck /> Rôle actif dans la direction</li>
+                <li><FaCheck /> Partage des revenus</li>
+                <li><FaCheck /> Accès à la technologie propriétaire</li>
+              </ul>
+              <button 
+                className="btn btn-primary"
+                onClick={() => scrollToSection('contact')}
+                style={{ width: '100%' }}
+              >
+                En Savoir Plus <FaArrowRight style={{ marginLeft: '8px' }} />
+              </button>
             </div>
             
-            <div className="option-card">
-              <div className="option-header">
-                <span className="option-icon"><FaMoneyBillWave /></span>
-                <h3>Partenariât Court-terme</h3>
+            {/* Short-term Partnership */}
+            <div className="investment-card">
+              <div className="investment-icon">
+                <FaChartPie />
               </div>
-              <div className="option-content">
-                <ul className="option-benefits">
-                  <li>Durée : entre 6mois et 1an</li>
-                  <li>Investissement: A Discuter</li>
-                  <li>Équité: inférieure à 30% </li>
-                  <li>Pas de Droit de veto</li>
-                  <li>Maximisation des Intérêts</li>
-                </ul>
-                <div className="option-footer">
-                  {/* <span className="option-tag">Opportunité Limitée</span> */}
-                  <button 
-                    className="btn-primary"
-                    onClick={() => scrollToSection('contact')}
-                  >
-                    En savoir plus
-                  </button>
-                </div>
-              </div>
+              <h3 className="investment-title">Partenariat Court-terme</h3>
+              <ul className="investment-benefits">
+                <li><FaCheck /> Durée: 6 mois à 1 an</li>
+                <li><FaCheck /> Investissement: À discuter</li>
+                <li><FaCheck /> Équité: Inférieure à 30%</li>
+                <li><FaCheck /> Pas de droit de veto</li>
+                <li><FaCheck /> Maximisation des intérêts</li>
+              </ul>
+              <button 
+                className="btn btn-secondary"
+                onClick={() => scrollToSection('contact')}
+                style={{ width: '100%' }}
+              >
+                Contacter <FaArrowRight style={{ marginLeft: '8px' }} />
+              </button>
             </div>
             
-            <div className="option-card">
-              <div className="option-header">
-                <span className="option-icon"><FaBuilding /></span>
-                <h3>Sponsoring institutionnel</h3>
+            {/* Sponsorship */}
+            <div className="investment-card">
+              <div className="investment-icon">
+                <FaBuilding />
               </div>
-              <div className="option-content">
-                <ul className="option-benefits">
-                  <li>Offre: $2,000+</li>
-                  <li>Compromis avant Lancement</li>
-                  <li>Marketing Direct: Site et NewsLetter</li>
-                  <li>Equité à vérifier</li>
-                  <li>Accès aux Fonctions Financiers</li>
-                </ul>
-                <div className="option-footer">
-                  {/* <span className="option-tag">Offre Exclusive</span> */}
-                  <button 
-                    className="btn-primary"
-                    onClick={() => scrollToSection('contact')}
-                  >
-                    En savoir plus
-                  </button>
-                </div>
-              </div>
+              <h3 className="investment-title">Sponsoring</h3>
+              <ul className="investment-benefits">
+                <li><FaCheck /> Offre: $2,000+</li>
+                <li><FaCheck /> Visibility: Site & Newsletter</li>
+                <li><FaCheck /> Marketing direct</li>
+                <li><FaCheck /> Équité à vérifier</li>
+                <li><FaCheck /> Accès aux fonctions VIP</li>
+              </ul>
+              <button 
+                className="btn btn-secondary"
+                onClick={() => scrollToSection('contact')}
+                style={{ width: '100%' }}
+              >
+                Proposer <FaArrowRight style={{ marginLeft: '8px' }} />
+              </button>
             </div>
           </div>
           
-          <div className="investment-details">
-            <h3>Engagement des agents de Promotion Disponible</h3>
-            
-            <div className="promo-agent-cta">
-              <div className="cta-content">
-                <div className="cta-icon"><FaUserTie /></div>
-                <div className="cta-text">
-                  <h4>Vous voulez générer des revenus ?</h4>
-                  <p>Rejoignez notre programme d'affiliation et gagnez jusqu'à 20% de commission sur chaque événement référé !</p>
-                </div>
-                <Link to="/promo-agent" className="btn-promo-agent">
-                  Découvrir le Programme
-                  <FaPercent style={{ marginLeft: '8px' }} />
-                </Link>
-              </div>
+          {/* Promo Agent CTA */}
+          <div className="promo-cta">
+            <div className="promo-cta-icon">
+              <FaUserTie />
             </div>
-            
-            <div className="details-grid">
-              {/* <div className="detail-item">
-                <h4><FaBriefcase style={{ display: 'inline', marginRight: '5px', color:'khaki' }} /> Structure</h4>
-                <p>Société à responsabilité limitée, prête pour l'investissement</p>
-              </div> */}
-              <div className="detail-item">
-                <h4><FaChartBar style={{ display: 'inline', marginRight: '5px', color:'green' }} /> Évaluation</h4>
-                <p>Évaluation pré-money: $1,500 - $1,000,000 selon l'option</p>
-              </div>
-              <div className="detail-item">
-                <h4><FaBullseye style={{ display: 'inline', marginRight: '5px', color:'red' }} /> Utilisation des Fonds</h4>
-                <p>30% développement, 60% marketing, 10% opérations</p>
-              </div>
-              <div className="detail-item">
-                <h4><FaChartLine style={{ display: 'inline', marginRight: '5px', color:'blue' }} /> Projections</h4>
-                <p>Dans les 1-3 ans</p>
-              </div>
+            <div className="promo-cta-content">
+              <h3 className="promo-cta-title">
+                <FaPercent style={{ marginRight: '8px', color: 'var(--secondary-500)' }} />
+                Gagnez jusqu'à 20% de commission !
+              </h3>
+              <p className="promo-cta-description">
+                Rejoignez notre programme d'affiliation et gagnez des commissions sur chaque événement référé.
+              </p>
             </div>
+            <Link to="/promo-agent" className="promo-cta-button">
+              Découvrir le Programme
+              <FaArrowRight />
+            </Link>
           </div>
-          
         </div>
       </section>
 
-      {/* Section Contact */}
+      {/* ==================== CONTACT SECTION ==================== */}
       <section id="contact" className="section contact-section" ref={contactRef}>
         <div className="section-container">
           <div className="section-header">
-            <h2>Contactez-<span className="highlight">Nous</span></h2>
+            <span className="section-badge">Contact</span>
+            <h2 className="section-title">
+             Contactez-<span className="highlight">Nous</span>
+            </h2>
             <p className="section-subtitle">
               Discutons de partenariat, d'investissement ou d'acquisition
             </p>
           </div>
           
-          <div className="contact-content">
-            <div className="contact-info">
-              <h3>Mes Coordonnées</h3>
+          <div className="contact-grid">
+            {/* Contact Info */}
+            <div className="contact-info-card">
+              <h3 className="contact-info-title">Nos Coordonnées</h3>
               
               <div className="contact-methods">
                 <div className="contact-method">
-                  <div className="method-icon" style={{backgroundColor:'green'}}><FaWhatsapp  /></div>
-                  <div className="method-content">
+                  <div className="contact-method-icon whatsapp">
+                    <FaWhatsapp />
+                  </div>
+                  <div className="contact-method-content">
                     <h4>WhatsApp</h4>
                     {contactInfo.whatsapp.map((number, index) => (
                       <a 
@@ -1100,7 +757,6 @@ ${formData.message}
                         href={`https://wa.me/${number.replace('+', '')}?text=Bonjour%20Je%20viens%20de%20voir%20Azenium`}
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="contact-link"
                       >
                         {number}
                       </a>
@@ -1109,14 +765,15 @@ ${formData.message}
                 </div>
                 
                 <div className="contact-method">
-                  <div className="method-icon"><FaPhone /></div>
-                  <div className="method-content">
+                  <div className="contact-method-icon phone">
+                    <FaPhone />
+                  </div>
+                  <div className="contact-method-content">
                     <h4>Téléphones</h4>
                     {contactInfo.phoneNumbers.map((phone, index) => (
                       <a 
                         key={index}
                         href={`tel:${phone}`}
-                        className="contact-link"
                       >
                         {phone}
                       </a>
@@ -1125,14 +782,15 @@ ${formData.message}
                 </div>
                 
                 <div className="contact-method">
-                  <div className="method-icon" style={{backgroundColor:'orange'}}><FaEnvelope /></div>
-                  <div className="method-content">
+                  <div className="contact-method-icon email">
+                    <FaEnvelope />
+                  </div>
+                  <div className="contact-method-content">
                     <h4>Emails</h4>
                     {contactInfo.emails.map((email, index) => (
                       <a 
                         key={index}
                         href={`mailto:${email}`}
-                        className="contact-link"
                       >
                         {email}
                       </a>
@@ -1141,201 +799,222 @@ ${formData.message}
                 </div>
                 
                 <div className="contact-method">
-                  <div className="method-icon"><FaGlobe /></div>
-                  <div className="method-content">
+                  <div className="contact-method-icon globe">
+                    <FaGlobe />
+                  </div>
+                  <div className="contact-method-content">
                     <h4>Site Web</h4>
-                    <a 
-                      href="https://azenium.com"
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="contact-link"
-                    >
-                      Accueil
-                    </a>
-                    <a 
-                      href="https://azenium.com/register"
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="contact-link"
-                    >
-                      S'inscrire
-                    </a>
-                    <a 
-                      href="https://azenium.com/about"
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="contact-link"
-                    >
-                      À propos
-                    </a>
+                    <a href="https://azenium.com" target="_blank" rel="noopener noreferrer">Accueil</a>
+                    <a href="https://azenium.com/register" target="_blank" rel="noopener noreferrer">S'inscrire</a>
+                    <a href="https://azenium.com/about" target="_blank" rel="noopener noreferrer">À propos</a>
                   </div>
                 </div>
               </div>
               
-              <div className="social-media-placeholder">
-                <h4><FaGlobe style={{fontSize:'1rem'}}/> Réseaux Sociaux</h4>
-                <div className="social-icons-placeholder">
-                  {/* Espaces pour les réseaux sociaux */}
-                  <a href='https://linkedin.com/company/azenium' target='_blank' className="contact-link" style={{textIndent:'15px'}}><FaLinkedin /> LinkedIn</a>
-                  <a href='https://www.facebook.com/azenium.platform' target='_blank' style={{textIndent:'15px'}} className="contact-link"><FaFacebook /> FaceBook</a>
-                  <a href='https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D' target='_blank' style={{textIndent:'15px'}} className="contact-link"><FaWhatsapp /> WhatsApp</a>
+              <div className="contact-social">
+                <h4 className="contact-social-title">Réseaux Sociaux</h4>
+                <div className="social-links">
+                  <a href="https://linkedin.com/company/azenium" target="_blank" rel="noopener noreferrer" className="social-link">
+                    <FaLinkedin />
+                  </a>
+                  <a href="https://www.facebook.com/azenium.platform" target="_blank" rel="noopener noreferrer" className="social-link">
+                    <FaFacebook />
+                  </a>
+                  <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">
+                    <FaWhatsapp />
+                  </a>
+                  <a href="https://x.com/azeniumplatform" target="_blank" rel="noopener noreferrer" className='social-link'>
+                    <FaTwitter />
+                  </a>
+                  <a href="https://pin.it/1t2XCbLLK" target="_blank" rel="noopener noreferrer" className='social-link'>
+                    <FaPinterest />
+                  </a>
                 </div>
               </div>
             </div>
             
-            <div className="contact-form-container">
-              <h3>Envoyez un Message Direct</h3>
+            {/* Contact Form */}
+            <div className="contact-form-card">
+              <h3 className="contact-form-title">Envoyez un Message</h3>
               
               <form onSubmit={handleSubmit} className="contact-form">
-                  <div className="form-group">
-                    <label htmlFor="name">Nom Complet *</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Votre nom"
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="email">Email *</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="votre@email.com"
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="phone">Téléphone</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="+XXX XXX XXX XXX"
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="interest">Intérêt Principal *</label>
-                    <select
-                      id="interest"
-                      name="interest"
-                      value={formData.interest}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="investor">Investisseur</option>
-                      <option value="partner">Partenaire Stratégique</option>
-                      <option value="buyer">Acheteur Potentiel</option>
-                      <option value="client">Client Potentiel</option>
-                      <option value="other">Autre</option>
-                    </select>
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="message">Message *</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Décrivez votre intérêt pour Azenium, votre proposition, ou posez vos questions..."
-                      rows={6}
-                    />
-                  </div>
-                  
-                  <button type="submit" className="btn-primary btn-submit">
-                    Envoyer le Message
-                  </button>
-                  
-                  <p className="form-note">
-                    Je m'engage à répondre à tous les messages dans les 24 heures.
-                  </p>
-                </form>
+                <div className="form-group">
+                  <label htmlFor="name">Nom Complet *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Votre nom"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="email">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="votre@email.com"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="phone">Téléphone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="+XXX XXX XXX XXX"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="interest">Intérêt Principal *</label>
+                  <select
+                    id="interest"
+                    name="interest"
+                    value={formData.interest}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="investor">Investisseur</option>
+                    <option value="partner">Partenaire Stratégique</option>
+                    <option value="buyer">Acheteur Potentiel</option>
+                    <option value="client">Client Potentiel</option>
+                    <option value="other">Autre</option>
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="message">Message *</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Décrivez votre intérêt pour Azenium..."
+                    rows={5}
+                  />
+                </div>
+                
+                <button type="submit" className="btn btn-primary form-submit">
+                  <FaPaperPlane style={{ marginRight: '8px' }} />
+                  Envoyer le Message
+                </button>
+                
+                <p className="form-note">
+                  Je m'engage à répondre dans les 24 heures.
+                </p>
+              </form>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer avec liens vers azenium.com */}
+      {/* ==================== FOOTER ==================== */}
       <footer className="azenium-footer">
         <div className="footer-container">
-          <div className="footer-main">
-            {/* Logo et description */}
+          <div className="footer-grid">
+            {/* Brand */}
             <div className="footer-brand">
-              <p className="footer-description">
-                Plateforme de création d'événements, d'invitations virtuelles et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.
-              </p>
-              <div className="footer-social">
-                <a href="https://linkedin.com/company/azenium" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
-                <a href="https://www.facebook.com/azenium.platform" target="_blank" rel="noopener noreferrer" className="social-link">Facebook</a>
-                <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">WhatsApp</a>
+              <div className="footer-logo">
+                <img src="/img/azeni_um_logo_transparent.png" height="35px" alt="Azenium" />
               </div>
+              <p className="footer-description">
+                Plateforme d'invitations virtuelles sécurisées avec technologie QR Code avancée.
+                La solution parfaite pour vos événements.
+              </p>
             </div>
-
-            {/* Liens rapides */}
-            <div className="footer-links-section">
-              <h4>Liens Rapides</h4>
+            
+            {/* Quick Links */}
+            <div>
+              <h4 className="footer-title">Liens Rapides</h4>
               <ul className="footer-links">
-                <li><a href="https://azenium.com/create" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Créer un événement</a></li>
-                <li><a href="https://azenium.com/events" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mes événements</a></li>
-                <li><a href="https://azenium.com/about" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> À propos</a></li>
-                <li><a href="https://azenium.com/support" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Support</a></li>
+                <li><a href="https://azenium.com/create" target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Créer un événement
+                </a></li><br />
+                <li><a href="https://azenium.com/events" target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Mes événements
+                </a></li>
+                <li><a href="https://azenium.com/about" target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt style={{ marginRight: '8px' }} /> À propos
+                </a></li>
+                <li><a href="https://azenium.com/support" target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Support
+                </a></li>
               </ul>
             </div>
-
-            {/* Liens légaux */}
-            <div className="footer-links-section">
-              <h4>Légal</h4>
+            
+            {/* Legal */}
+            <div>
+              <h4 className="footer-title">Légal</h4>
               <ul className="footer-links">
-                <li><a href="https://azenium.com/privacy" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Politique de confidentialité</a></li>
-                <li><a href="https://azenium.com/legal" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Mentions légales</a></li>
-                <li><a href="https://azenium.com/terms" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Conditions d'utilisation</a></li>
-                <li><a href="https://azenium.com/contact" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /> Nous contacter</a></li>
+                <li><a href="https://azenium.com/privacy" target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Politique de confidentialité
+                </a></li>
+                <li><a href="https://azenium.com/legal" target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Mentions légales
+                </a></li>
+                <li><a href="https://azenium.com/terms" target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Conditions d'utilisation
+                </a></li>
               </ul>
             </div>
-
+            
             {/* Contact */}
-            <div className="footer-contact">
-              <h4>Contactez-nous</h4>
+            <div>
+              <h4 className="footer-title">Contactez-nous</h4>
               <div className="footer-contact-item">
                 <FaEnvelope />
                 <a href="mailto:azenium@outlook.com">azenium@outlook.com</a>
               </div>
               <div className="footer-contact-item">
                 <FaWhatsapp />
-                <a href="https://wa.me/250792871952?text=Bonjour%20Je%20viens%20de%20voir%20Azenium" target="_blank" rel="noopener noreferrer">+243 978 089 552</a>
+                <a href="https://wa.me/243978089552?text=Bonjour" target="_blank" rel="noopener noreferrer">
+                  +243 978 089 552
+                </a>
               </div>
-              <a href="https://azenium.com" target="_blank" rel="noopener noreferrer" className="footer-site-link">
-                <FaGlobe /> Visitez azenium.com
+              <a href="https://azenium.com" target="_blank" rel="noopener noreferrer" 
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginTop: '1rem',
+                  padding: '0.75rem 1.25rem',
+                  background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+                  color: 'white',
+                  borderRadius: '0.5rem',
+                  fontWeight: '600',
+                  fontSize: '0.9rem',
+                  textDecoration: 'none'
+                }}>
+                <FaGlobe /> Visiter azenium.com
               </a>
             </div>
           </div>
-
-          {/* Copyright */}
+          
+          {/* Bottom */}
           <div className="footer-bottom">
-            <p>&copy; 2026 <span translate="no">Azenium</span>. Tous droits réservés.</p>
+            <p className="footer-copyright">
+              © 2026 <strong>Azenium</strong>. Tous droits réservés.
+            </p>
             <p className="footer-powered">
-              Propulsé par <a href="https://azenium.com" target="_blank" rel="noopener noreferrer"><span translate="no">Azenium</span> <FaCrown style={{fontSize:'0.8em'}} /></a>
+              Propulsé par <a href="https://azenium.com">Azenium <FaCrown style={{ fontSize: '0.8em' }} /></a>
             </p>
           </div>
         </div>
       </footer>
-
     </div>
   );
 };
-
 
 export default Home;
