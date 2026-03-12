@@ -916,6 +916,17 @@ ${formData.message}`;
                 Plateforme d'invitations virtuelles sécurisées avec technologie QR Code avancée.
                 La solution parfaite pour vos événements.
               </p>
+              
+              {/* Media Gallery */}
+              <div className="footer-media-gallery">
+                <img src="/img/long-logo.jpeg" alt="Long Logo" className="footer-media-logo" />
+                <img src="/img/general-logo.png" alt="General Logo" className="footer-media-logo" />
+                <img src="/img/images/partnership-image.jpg" alt="image de partenariat" className="footer-media-affiche" />
+                <video className="footer-media-video" controls preload="metadata">
+                  <source src="/video/azenium-homepage.mp4" type="video/mp4" />
+                  Votre navigateur ne supporte pas la vidéo.
+                </video>
+              </div>
             </div>
             
             {/* Quick Links */}

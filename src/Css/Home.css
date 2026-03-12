@@ -1765,6 +1765,36 @@ a:hover {
   margin-bottom: 1.75rem;
 }
 
+/* Footer Media Gallery */
+.footer-media-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.footer-media-logo {
+  max-width: 120px;
+  height: auto;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+}
+
+.footer-media-affiche {
+  max-width: 150px;
+  height: auto;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+}
+
+.footer-media-video {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin-top: 5px;
+}
+
 .footer-title {
   font-size: 0.85rem;
   font-weight: 700;
@@ -1781,7 +1811,7 @@ a:hover {
 }
 
 .footer-links li {
-  margin-bottom: 0.85rem;
+  margin-bottom: -0.1rem;
 }
 
 .footer-links a {
