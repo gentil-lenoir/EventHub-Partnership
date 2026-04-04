@@ -20,7 +20,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ selectedTheme = 'dark' }) =
       <div className="custom-header-container">
         {/* Logo */}
         <div className="custom-logo">
-          <a href="https://partner.quevvy.com target="_blank" rel="noopener noreferrer" className="logo-link">
+          <a href="https://partner.quevvy.com" target="_blank" rel="noopener noreferrer" className="logo-link">
             <span className="logo-icon">
               <img 
                 src={selectedTheme === 'dark' ? "/img/logo_transparent.png" : "/img/logo_transparent.png"} 

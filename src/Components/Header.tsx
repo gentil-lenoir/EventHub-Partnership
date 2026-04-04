@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
     <nav className="main-nav">
       <div className="nav-container">
         <div className="logo">
-          <a href="https://partner.quevvy.com target="_blank" rel="noopener noreferrer" className="logo-link">
+          <a href="https://partner.quevvy.com" target="_blank" rel="noopener noreferrer" className="logo-link">
             <span className="logo-icon">
               <img 
                 src="quevvy_logo_transparent.png"
