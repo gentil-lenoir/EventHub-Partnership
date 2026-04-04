@@ -39,8 +39,8 @@ interface TimelineItem {
 
 // Données du projet
 const projectData = {
-  name: "Azenium",
-  company: "Azenium",
+  name: "Quevvy",
+  company: "Quevvy",
   tagline: "La révolution des invitations virtuelles sécurisées",
   description: "Plateforme de création d'événements, d'invitations virtuelles, de cartes digitales et de tickets d'entrée sécurisés utilisant la technologie QR Code avancée.",
   fullName: "GENTIL LE NOIR MALIYAMUNGU BALEGAMIRE",
@@ -50,7 +50,7 @@ const projectData = {
 const contactInfo: ContactInfo = {
   whatsapp: ["+243978089552"],
   phoneNumbers: ["+250729606087", "+243978089552"],
-  emails: ["azenium@outlook.com", "gentillenoir075@outlook.com"],
+  emails: ["quevvy@outlook.com", "gentillenoir075@outlook.com"],
   portfolioUrl: "https://gentil-lenoir.vercel.app/portfolio",
 };
 
@@ -196,42 +196,42 @@ const galleryEvents: GalleryEvent[] = [
     title: "Mariage Élégant",
     category: "Mariage",
     imageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
-    externalUrl: "https://azenium.com/events/wedding"
+    externalUrl: "https://quevvy.com/events/wedding"
   },
   {
     id: 2,
     title: "Festival de Musique",
     category: "Festival",
     imageUrl: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=300&fit=crop",
-    externalUrl: "https://azenium.com/events/music-festival"
+    externalUrl: "https://quevvy.com/events/music-festival"
   },
   {
     id: 3,
     title: "Conférence Tech",
     category: "Conférence",
     imageUrl: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
-    externalUrl: "https://azenium.com/events/conference"
+    externalUrl: "https://quevvy.com/events/conference"
   },
   {
     id: 4,
     title: "Anniversaire Festif",
     category: "Anniversaire",
     imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=300&fit=crop",
-    externalUrl: "https://azenium.com/events/birthday"
+    externalUrl: "https://quevvy.com/events/birthday"
   },
   {
     id: 5,
     title: "Événement Corporate",
     category: "Entreprise",
     imageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=300&fit=crop",
-    externalUrl: "https://azenium.com/events/corporate"
+    externalUrl: "https://quevvy.com/events/corporate"
   },
   {
     id: 6,
     title: "Soirée Gala",
     category: "Gala",
     imageUrl: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400&h=300&fit=crop",
-    externalUrl: "https://azenium.com/events/gala"
+    externalUrl: "https://quevvy.com/events/gala"
   }
 ];
 
@@ -248,7 +248,7 @@ const Home: React.FC = () => {
   
   // Theme state
   const [selectedTheme, setSelectedTheme] = useState<string>(() => {
-    const savedTheme = localStorage.getItem('azenium-theme');
+    const savedTheme = localStorage.getItem('quevvy-theme');
     return savedTheme || 'dark';
   });
 
@@ -279,7 +279,7 @@ const Home: React.FC = () => {
 
   // Theme change effect
   useEffect(() => {
-    localStorage.setItem('azenium-theme', selectedTheme);
+    localStorage.setItem('quevvy-theme', selectedTheme);
     document.body.className = selectedTheme === 'light' ? 'light-theme' : 'dark-theme';
   }, [selectedTheme]);
 
@@ -320,7 +320,7 @@ const Home: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const message = `🌟 NOUVELLE DEMANDE DE PARTENARIAT AZENIUM 🌟
+    const message = `🌟 NOUVELLE DEMANDE DE PARTENARIAT QUEVVY 🌟
 
 👤 Nom: ${formData.name}
 📧 Email: ${formData.email}
@@ -369,7 +369,7 @@ ${formData.message}`;
   };
 
   return (
-    <div className="azenium-container">
+    <div className="quevvy-container">
       {/* Navigation */}
       <Header 
         activeSection={activeSection}
@@ -416,9 +416,9 @@ ${formData.message}`;
           {/* Logo */}
           <div className="hero-logo">
             <img 
-              src="/img/azeni_um_logo_transparent.png" 
-              alt="Logo Azenium" 
-              title="Logo Azenium"
+              src="/img/quevvy_logo_transparent.png" 
+              alt="Logo Quevvy" 
+              title="Logo Quevvy"
             />
           </div>
           
@@ -463,11 +463,11 @@ ${formData.message}`;
               controls 
               preload="metadata"
             >
-              <source src="/video/azenium-homepage.mp4" type="video/mp4" />
+              <source src="/video/quevvy-homepage.mp4" type="video/mp4" />
               Votre navigateur ne supporte pas la vidéo.
             </video>
             <p className="hero-video-caption">
-              Découvrez comment Azenium révolutionne les invitations virtuelles
+              Découvrez comment Quevvy révolutionne les invitations virtuelles
             </p>
           </div>
           
@@ -505,7 +505,7 @@ ${formData.message}`;
           <div className="section-header">
             <span className="section-badge">À Propos</span>
             <h2 className="section-title">
-              Le Projet <span className="highlight">Azenium</span>
+              Le Projet <span className="highlight">Quevvy</span>
             </h2>
             <p className="section-subtitle">
               Une solution innovante pour la gestion d'événements et d'invitations numériques sécurisées
@@ -517,10 +517,10 @@ ${formData.message}`;
             <div className="project-card">
               <h3 className="project-card-title">
                 <span className="icon"><FaQrcode /></span>
-                Qu'est-ce que Azenium ?
+                Qu'est-ce que Quevvy ?
               </h3>
               <p>
-                <strong>Azenium</strong> est une plateforme innovatorice permettant la création d'événements 
+                <strong>Quevvy</strong> est une plateforme innovatorice permettant la création d'événements 
                 virtuels et hybrides avec des invitations digitales sécurisées utilisant la technologie QR Code avancée. 
                 Contrairement aux solutions traditionnelles, nos invitations sont <strong>impossibles à copier ou falsifier</strong>, 
                 offrant un niveau de sécurité inégalé.
@@ -588,11 +588,11 @@ ${formData.message}`;
           {/* Project Media Showcase */}
           <div className="project-media-showcase">
             <div className="project-partnership-image">
-              <img src="/img/images/partnership-image.jpg" alt="Partenariat Azenium" />
+              <img src="/img/images/partnership-image.jpg" alt="Partenariat Quevvy" />
             </div>
             <div className="project-logos">
               <h4 className="project-logos-title">Galerie</h4>
-              <p className="project-logos-subtitle">Découvrez quelques-uns des événements que vous pouvez organiser avec Azenium</p>
+              <p className="project-logos-subtitle">Découvrez quelques-uns des événements que vous pouvez organiser avec Quevvy</p>
               <div className="project-logos-grid">
                 {galleryEvents.map(event => (
                   <a 
@@ -628,7 +628,7 @@ ${formData.message}`;
           <div className="section-header">
             <span className="section-badge">Fonctionnalités</span>
             <h2 className="section-title">
-              Pourquoi Choisir <span className="highlight">Azenium</span> ?
+              Pourquoi Choisir <span className="highlight">Quevvy</span> ?
             </h2>
             <p className="section-subtitle">
               Des fonctionnalités avancées pour des événements sécurisés et mémorables
@@ -662,7 +662,7 @@ ${formData.message}`;
               Technologie de Pointe
             </h3>
             <p style={{ textAlign: 'justify', lineHeight: '1.8', color: 'var(--text-secondary)', maxWidth: '800px', margin: '0 auto 2rem' }}>
-              <strong>Azenium</strong> représente une innovation majeure dans le domaine de la gestion d'événements. 
+              <strong>Quevvy</strong> représente une innovation majeure dans le domaine de la gestion d'événements. 
               Notre plateforme combine <strong>sécurité avancée</strong>, <strong>facilité d'utilisation</strong> et 
               <strong> design moderne</strong> pour offrir une expérience unique. L'équipe possède une expertise 
               approfondie en cryptographie et développement d'applications sécurisées. Nous avons développé un 
@@ -716,7 +716,7 @@ ${formData.message}`;
           <div className="section-header">
             <span className="section-badge">Opportunité</span>
             <h2 className="section-title">
-              Investir dans <span className="highlight">Azenium</span>
+              Investir dans <span className="highlight">Quevvy</span>
             </h2>
             <p className="section-subtitle">
               Participez à la révolution des invitations virtuelles sécurisées
@@ -841,7 +841,7 @@ ${formData.message}`;
                     {contactInfo.whatsapp.map((number, index) => (
                       <a 
                         key={index}
-                        href={`https://wa.me/${number.replace('+', '')}?text=Bonjour%20Je%20viens%20de%20voir%20Azenium`}
+                        href={`https://wa.me/${number.replace('+', '')}?text=Bonjour%20Je%20viens%20de%20voir%20Quevvy`}
                         target="_blank" 
                         rel="noopener noreferrer"
                       >
@@ -891,9 +891,9 @@ ${formData.message}`;
                   </div>
                   <div className="contact-method-content">
                     <h4>Site Web</h4>
-                    <a href="https://azenium.com" target="_blank" rel="noopener noreferrer">Accueil</a>
-                    <a href="https://azenium.com/register" target="_blank" rel="noopener noreferrer">S'inscrire</a>
-                    <a href="https://azenium.com/about" target="_blank" rel="noopener noreferrer">À propos</a>
+                    <a href="https://quevvy.com" target="_blank" rel="noopener noreferrer">Accueil</a>
+                    <a href="https://quevvy.com/register" target="_blank" rel="noopener noreferrer">S'inscrire</a>
+                    <a href="https://quevvy.com/about" target="_blank" rel="noopener noreferrer">À propos</a>
                   </div>
                 </div>
               </div>
@@ -901,16 +901,16 @@ ${formData.message}`;
               <div className="contact-social">
                 <h4 className="contact-social-title">Réseaux Sociaux</h4>
                 <div className="social-links">
-                  <a href="https://linkedin.com/company/azenium" target="_blank" rel="noopener noreferrer" className="social-link">
+                  <a href="https://linkedin.com/company/quevvy" target="_blank" rel="noopener noreferrer" className="social-link">
                     <FaLinkedin />
                   </a>
-                  <a href="https://www.facebook.com/azenium.platform" target="_blank" rel="noopener noreferrer" className="social-link">
+                  <a href="https://www.facebook.com/quevvy.platform" target="_blank" rel="noopener noreferrer" className="social-link">
                     <FaFacebook />
                   </a>
                   <a href="https://chat.whatsapp.com/HXge11ByhzC4yrbhlExW6D" target="_blank" rel="noopener noreferrer" className="social-link">
                     <FaWhatsapp />
                   </a>
-                  <a href="https://x.com/azeniumplatform" target="_blank" rel="noopener noreferrer" className='social-link'>
+                  <a href="https://x.com/quevvyplatform" target="_blank" rel="noopener noreferrer" className='social-link'>
                     <FaTwitter />
                   </a>
                   <a href="https://pin.it/1t2XCbLLK" target="_blank" rel="noopener noreferrer" className='social-link'>
@@ -988,7 +988,7 @@ ${formData.message}`;
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    placeholder="Décrivez votre intérêt pour Azenium..."
+                    placeholder="Décrivez votre intérêt pour Quevvy..."
                     rows={5}
                   />
                 </div>
@@ -1008,13 +1008,13 @@ ${formData.message}`;
       </section>
 
       {/* ==================== FOOTER ==================== */}
-      <footer className="azenium-footer">
+      <footer className="quevvy-footer">
         <div className="footer-container">
           <div className="footer-grid">
             {/* Brand */}
             <div className="footer-brand">
               <div className="footer-logo">
-                <img src="/img/azeni_um_logo_transparent.png" height="40px" alt="Azenium" />
+                <img src="/img/quevvy_logo_transparent.png" height="40px" alt="Quevvy" />
               </div>
               <p className="footer-description">
                 Plateforme d'invitations virtuelles sécurisées avec technologie QR Code avancée.
@@ -1026,13 +1026,13 @@ ${formData.message}`;
             <div>
               <h4 className="footer-title">Liens Rapides</h4>
               <ul className="footer-links">
-                <li><a href="https://azenium.com/create" target="_blank" rel="noopener noreferrer">
+                <li><a href="https://quevvy.com/create" target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Créer un événement
                 </a></li>
-                <li><a href="https://azenium.com/about" target="_blank" rel="noopener noreferrer">
+                <li><a href="https://quevvy.com/about" target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt style={{ marginRight: '8px' }} /> À propos
                 </a></li>
-                <li><a href="https://azenium.com/support" target="_blank" rel="noopener noreferrer">
+                <li><a href="https://quevvy.com/support" target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Support
                 </a></li>
               </ul>
@@ -1042,13 +1042,13 @@ ${formData.message}`;
             <div>
               <h4 className="footer-title">Légal</h4>
               <ul className="footer-links">
-                <li><a href="https://azenium.com/privacy" target="_blank" rel="noopener noreferrer">
+                <li><a href="https://quevvy.com/privacy" target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Politique de confidentialité
                 </a></li>
-                <li><a href="https://azenium.com/legal" target="_blank" rel="noopener noreferrer">
+                <li><a href="https://quevvy.com/legal" target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Mentions légales
                 </a></li>
-                <li><a href="https://azenium.com/terms" target="_blank" rel="noopener noreferrer">
+                <li><a href="https://quevvy.com/terms" target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt style={{ marginRight: '8px' }} /> Conditions d'utilisation
                 </a></li>
               </ul>
@@ -1059,7 +1059,7 @@ ${formData.message}`;
               <h4 className="footer-title">Contactez-nous</h4>
               <div className="footer-contact-item">
                 <FaEnvelope />
-                <a href="mailto:azenium@outlook.com">azenium@outlook.com</a>
+                <a href="mailto:quevvy@outlook.com">quevvy@outlook.com</a>
               </div>
               <div className="footer-contact-item">
                 <FaWhatsapp />
@@ -1067,9 +1067,9 @@ ${formData.message}`;
                   +243 978 089 552
                 </a>
               </div>
-              <a href="https://azenium.com" target="_blank" rel="noopener noreferrer" 
+              <a href="https://quevvy.com" target="_blank" rel="noopener noreferrer" 
                 className="footer-cta">
-                <FaGlobe /> Visiter azenium.com
+                <FaGlobe /> Visiter quevvy.com
               </a>
             </div>
           </div>
@@ -1077,10 +1077,10 @@ ${formData.message}`;
           {/* Bottom */}
           <div className="footer-bottom">
             <p className="footer-copyright">
-              © 2026 <strong>Azenium</strong>. Tous droits réservés.
+              © 2026 <strong>Quevvy</strong>. Tous droits réservés.
             </p>
             <p className="footer-powered">
-              Propulsé par <a href="https://azenium.com">Azenium <FaCrown style={{ fontSize: '0.8em' }} /></a>
+              Propulsé par <a href="https://quevvy.com">Quevvy <FaCrown style={{ fontSize: '0.8em' }} /></a>
             </p>
           </div>
         </div>

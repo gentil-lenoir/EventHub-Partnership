@@ -3,7 +3,7 @@
 ## Informations Collectées
 
 ### Fichier Actuel: `src/Views/Home.tsx`
-- Page de landing pour Azenium - plateforme d'invitations virtuelles sécurisées
+- Page de landing pour Quevvy - plateforme d'invitations virtuelles sécurisées
 - Contient: Hero, Project, Features, Roadmap, Investment, Contact, Footer
 - Utilise React avec TypeScript
 - Design actuel: Moderne mais peut être amélioré

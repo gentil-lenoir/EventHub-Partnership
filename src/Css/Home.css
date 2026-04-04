@@ -1,5 +1,5 @@
 /* ================================================
-   AZENIUM - PREMIUM LANDING PAGE DESIGN
+   QUEVVY - PREMIUM LANDING PAGE DESIGN
    ================================================ */
 
 /* Google Fonts Import */
@@ -144,7 +144,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.azenium-container {
+.quevvy-container {
   min-height: 100vh;
   position: relative;
 }
@@ -1930,7 +1930,7 @@ a:hover {
    FOOTER
    ================================================ */
 
-.azenium-footer {
+.quevvy-footer {
   background: linear-gradient(180deg, var(--dark-bg) 0%, #020617 100%);
   border-top: 1px solid var(--border-color);
   padding: 5rem 2rem 2.5rem;

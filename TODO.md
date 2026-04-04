@@ -1,7 +1,7 @@
 # TODO - Galerie d'événements et festivals
 
 ## Objectif
-Ajouter des images externes de fêtes, festivals et événements dans la galerie du site Azenium
+Ajouter des images externes de fêtes, festivals et événements dans la galerie du site Quevvy
 
 ## Étapes à compléter
 
