@@ -196,42 +196,42 @@ const galleryEvents: GalleryEvent[] = [
     title: "Mariage Élégant",
     category: "Mariage",
     imageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
-    externalUrl: "https://quevvy.com/events/wedding"
+    externalUrl: "https://partner.quevvy.com/events/wedding"
   },
   {
     id: 2,
     title: "Festival de Musique",
     category: "Festival",
     imageUrl: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=300&fit=crop",
-    externalUrl: "https://quevvy.com/events/music-festival"
+    externalUrl: "https://partner.quevvy.com/events/music-festival"
   },
   {
     id: 3,
     title: "Conférence Tech",
     category: "Conférence",
     imageUrl: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
-    externalUrl: "https://quevvy.com/events/conference"
+    externalUrl: "https://partner.quevvy.com/events/conference"
   },
   {
     id: 4,
     title: "Anniversaire Festif",
     category: "Anniversaire",
     imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=300&fit=crop",
-    externalUrl: "https://quevvy.com/events/birthday"
+    externalUrl: "https://partner.quevvy.com/events/birthday"
   },
   {
     id: 5,
     title: "Événement Corporate",
     category: "Entreprise",
     imageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=300&fit=crop",
-    externalUrl: "https://quevvy.com/events/corporate"
+    externalUrl: "https://partner.quevvy.com/events/corporate"
   },
   {
     id: 6,
     title: "Soirée Gala",
     category: "Gala",
     imageUrl: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400&h=300&fit=crop",
-    externalUrl: "https://quevvy.com/events/gala"
+    externalUrl: "https://partner.quevvy.com/events/gala"
   }
 ];
 
