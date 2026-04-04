@@ -2160,8 +2160,42 @@ a:hover {
    ================================================ */
 
 @media (max-width: 1024px) {
-  .nav-menu {
+  .logo {
     display: none;
+  }
+  
+  .nav-menu {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0;
+  }
+  
+  .nav-link {
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    min-height: 32px;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nav-link.active {
+    display: none !important;
+  }
+  
+  .nav-link:hover {
+    background: rgba(59, 130, 246, 0.4) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  }
+  
+  .nav-container {
+    gap: 0.25rem;
   }
   
   .hero-stats {

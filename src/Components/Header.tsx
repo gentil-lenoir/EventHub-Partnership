@@ -27,8 +27,8 @@ const defaultScrollToSection = (sectionId: string) => {
 const defaultNavItems = [
   { id: 'home', label: 'Home' },
   { id: 'features', label: 'Features' },
-  { id: 'pricing', label: 'Pricing' },
-  { id: 'demo', label: 'Demo' },
+  // { id: 'pricing', label: 'Pricing' },
+  // { id: 'demo', label: 'Demo' },
   { id: 'roadmap', label: 'Roadmap' },
   { id: 'investment', label: 'Investment' },
   { id: 'contact', label: 'Contacts' }
